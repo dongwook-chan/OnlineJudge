@@ -18,7 +18,7 @@ int main(){
             else{
                 ctr = 0;
             }
-        }
+        } 
     }
     cout << title - 1;
     return 0;
