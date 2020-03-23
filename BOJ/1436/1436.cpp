@@ -1,4 +1,5 @@
 // 6의 개수가 3개 (x) 연속된 6의 개수가 4개 (o)
+// git 잘 안 됨...
 #include <iostream>
 using namespace  std;
 int main(){
