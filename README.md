@@ -7,6 +7,8 @@ TODO:
             1-2-1-1. algoritm classfication
             1-2-1-2. design
             1-2-1-3. mistakes
-            1-2-1-4. URL
+            1-2-1-4. URL to problem
+            1-2-1-5. URL to solution
+            1-2-1-6. URL to description
     1-3. create an empty "in" file to use as an input
 2. create mktags.sh
