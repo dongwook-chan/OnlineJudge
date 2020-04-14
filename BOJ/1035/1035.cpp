@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
+#include <string.h>
 #include <algorithm>
 #include <limits.h>
 using namespace std;
 string board[5];
-bool vst[1<<25];
+unsigned int min_cst[1<<25];
 int dr[] = {-1, 0, 1, 0};
 int dc[] = {0, 1, 0, -1};
 int star_ctr;
@@ -24,15 +25,19 @@ void dfs(int r, int c){
     }
 }
 void bf(int cst){
+    if(cst >= ans) return;
+
     // visit check
     int bm = 0;
     for(int r = 0; r < 5; ++r){
         for(int c = 0; c < 5; ++c){
-            bm |= 1 << (r * 5 + c);
+            if(board[r][c] == '*'){
+                bm |= 1 << (r * 5 + c);
+            }
         }
     }
-    if(vst[bm]) return;
-    vst[bm] = true;
+    if(min_cst[bm] <= cst) return;
+    min_cst[bm] = cst;
 
     // dfs check
     for(int r = 0; r < 5; ++r){
@@ -70,6 +75,8 @@ out:
     }
 }
 int main(){
+    memset(min_cst, -1, sizeof(int) * 1<<25);
+    //cout << min_cst[0] << endl;
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     for(int r = 0; r < 5; ++r){
         cin >> board[r];
@@ -79,6 +86,7 @@ int main(){
             }
         }
     }
+    //cout << star_ctr << endl;
     bf(0);
     cout << ans;
     return 0;
