@@ -1,4 +1,4 @@
-# OnlineJudge
+# oneline-judge
 TODO:
 * create new_problem.sh
     * accept one argument for the problem number
