@@ -18,7 +18,6 @@ int string_to_map(string &str, unordered_map<string, int> &map){
         if(!isalpha(str[i]) || !isalpha(str[i + 1])) continue;
         ++size;                                                         /* 2 */
         string word = str.substr(i, 2);                                 /* 1 */
-        transform(word.begin(), word.end(), word.begin(), ::tolower);
         if(!map.insert(make_pair(word, 1)).second){
             ++map[word];
         }
@@ -41,6 +40,8 @@ int intersect(unordered_map<string, int> &map1, unordered_map<string, int> &map2
 }
 
 int solution(string str1, string str2) {
+    transform(str1.begin(), str1.end(), str1.begin(), ::tolower);
+    transform(str2.begin(), str2.end(), str2.begin(), ::tolower);
     unordered_map<string, int> map1, map2;
     int size1 = string_to_map(str1, map1);
     int size2 = string_to_map(str2, map2);
