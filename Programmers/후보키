@@ -79,7 +79,6 @@ int solution(vector<vector<string>> relation) {
             case PUSH:
                 for(; c < C; ++c){
                     if(vst[bm | 1 << c]) continue;
-                    vst[bm | 1 << c] = true;
                     q.push({bm | (1 << c), c + 1, CHECK});
                 }
                 break;
