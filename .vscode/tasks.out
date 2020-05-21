@@ -1,11 +1,3 @@
-# 1 "/home/dongwook-biz/Git/OnlineJudge/.vscode/tasks.json"
-# 1 "/usr/bin//"
-# 1 "<built-in>"
-# 1 "<command-line>"
-# 31 "<command-line>"
-# 1 "/usr/include/stdc-predef.h" 1 3 4
-# 32 "<command-line>" 2
-# 1 "/home/dongwook-biz/Git/OnlineJudge/.vscode/tasks.json"
 {
 
 
@@ -19,11 +11,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}.out",
-                "&&",
-                "${fileDirname}/${fileBasenameNoExtension}.out",
-                "<",
-                "${fileDirname}/input.txt"
+                "${fileDirname}/${fileBasenameNoExtension}.out"
             ],
             "options": {
                 "cwd": "/usr/bin"

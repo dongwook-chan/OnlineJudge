@@ -1,33 +1,82 @@
+/*
+    현재 선택된 열집합의 부분집합이 과거에 선택됐다면 최소성 불만족으로 후보키가 될 수 없다
+    1. 브루트포스로 돌면 선택된 (1, 2, 3)을 (2, 3)이 선택된 후에 배제하는(최소x) 로직 필요
+    2. 브루트포스 후 선택된 모든 키에 대해서 부분집합 검사
+    
+    어떤 키의 조합을 골랐는지 확인해야! 킷값의 조합이 아님    
+    
+    합쳐져서 같아질 수 있는 경우 대비 위해 결합 위치에 '.' 붙이기
+    concat_key = "abc" + "def"; -> concat_key = "abc" + '.' + "def";
+    concat_key = "ab" + "bdef"; -> concat_key = "ab" + '.' + "cdef";
+*/
+
 #include <string>
-#include <unordered_map>
+#include <vector>
+#include <queue>
 #include <unordered_set>
+#include <algorithm>
 
 using namespace std;
 
-// split each string into 2-letter words (key) and count their frequency (value) in each string
-void string_to_map(string &str, unordered_map<string, int> &map){
-    for(int i = 0; i < str.size() - 1; ++i){
-        string word = str.substr(i, i + 1);
-        if(!map.insert(make_pair(word, 1))){
-            ++map[word];
+enum CMD {CHECK, PUSH};
+struct qnode{
+    int bm;
+    int c;
+    int cmd;
+};
+
+bool vst[256];
+int answer;
+int solution(vector<vector<string>> relation) {
+    queue<qnode> q;
+    q.push({0, 0, CHECK});
+    vst[0] = true;
+    
+    int R = relation.size();
+    int C = relation[0].size();
+    
+    while(q.size()){
+        int bm = q.front().bm;
+        int c = q.front().c;
+        bool cmd = q.front().cmd;
+        
+        unordered_set<string> candidate_keys;
+        candidate_keys.insert(string());
+        switch(cmd){
+            case CHECK:
+                for(int r = 0; r < R; ++r){
+                    string concat_keys;
+                    for(int c = 0, b = 1; b < (1 << C); ++c, b <<= 1){
+                        if(bm && b){
+                            concat_keys += '.' + relation[r][c];
+                        }
+                    }
+                    if(!candidate_keys.insert(concat_keys).second) goto select_more_columns;
+                }
+                ++answer;
+                for(int i = bm; i < (1 << C); ++i){
+                    if((i & bm) == bm){
+                        vst[i] = true;
+                    }
+                }
+                continue;
+            select_more_columns:
+                q.push({bm, c, PUSH});
+                break;
+            case PUSH:
+                for(; c < C; ++c){
+                    if(vst[bm | 1 << c]) continue;
+                    vst[bm | 1 << c] = true;
+                    q.push({bm | (1 << c), c + 1, CHECK});
+                }
+                break;
         }
     }
+    return answer;
 }
 
-int jaccard(unordered_map<string, int> &map1, unordered_map<string, int> &map2){
-    // collect all words in map1 and map2 // for any word that occurs, compare the occur
-    unordered_map<string, int> intersection, merge;
-    for(auto item1 : map1){
-        auto item2 = map2.find(item1.first);
-        if(item2 != map2.end()){
-            item2->first
-        }
-    }
-}
-
-int solution(string str1, string str2) {
-    unordered_map<string, int> map1, map2;
-    string_to_map(str1, map1);
-    string_to_map(str2, map2);
-    return jaccard(map1, map2);
+int main(){
+    vector<vector<string>> relation = {{"100","ryan","music","2"},{"200","apeach","math","2"},{"300","tube","computer","3"},{"400","con","computer","4"},{"500","muzi","music","3"},{"600","apeach","music","2"}};
+    solution(relation);
+    return 0;
 }
