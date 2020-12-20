@@ -38,5 +38,5 @@ else
 fi
 
 # create input files
-crawl_res=$(python3 crawler.py)
+crawl_res=$(python3 crawler.py $work_dir $2)
 echo $crawl_res
