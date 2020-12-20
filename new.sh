@@ -4,6 +4,8 @@ if [ "$#" -ne 2 ]; then
         exit 1
 fi
 
+echo "=== try to create directory and files for problem '$1' ==="
+
 # check parameters
 ## argument 1: the directory must exist
 if [ -d $PWD/$1 ]; then
@@ -17,20 +19,24 @@ if [ ! -d $PWD/$1/$2 ]; then
         echo "problem directoy:\tnot found"
 else
         echo "problem directory:\tfound"
-        exit 1
 fi
 
 # create working directory
 work_dir="$PWD/$1/$2"
 mkdir $work_dir
 
-# create files
-touch $work_dir/$2.cpp
-touch $work_dir/in
+# create cpp file
+if [ ! -f $work_dir/$2.cpp ]; then
+    touch $work_dir/$2.cpp
+fi
 
-if [ -f $work_dir/$2.cpp ] && [ -f $work_dir/in ]; then
-	echo "cpp and input files created"
+if [ -f $work_dir/$2.cpp ]; then
+	echo "cpp file created"
 else
-	echo "failed to create files"
+	echo "failed to create cpp file"
 	exit 1
 fi
+
+# create input files
+crawl_res=$(python3 crawler.py)
+echo $crawl_res
