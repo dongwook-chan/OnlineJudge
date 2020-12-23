@@ -15,6 +15,7 @@ int dfs_vst[5][5], dfs_vstn;
 int dfs_ctr;
 void dfs(int r, int c){
     ++dfs_ctr;
+    
     dfs_vst[r][c] = dfs_vstn;
     for(int d = 0; d < 4; ++d){
         int nr = r + dr[d], nc = c + dc[d];
