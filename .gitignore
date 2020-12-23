@@ -1,6 +1,11 @@
+# execuatble files
 *.out
 
+# swap files
 *.swp
 *.swo
 *.swn
 *.swm
+
+# problem cache
+cached_problem
