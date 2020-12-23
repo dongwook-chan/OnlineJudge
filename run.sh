@@ -1,12 +1,19 @@
 # check the number of paramters
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ge 2 ]; then
 	echo "argument test:\tillegal number of parameters"
 	exit 1
 fi
-echo "========= try to compile and execute problem '$1' ========="
+
+# get problem
+prb=$(cat cached_problem)
+if [ "$#" -eq 1 ]; then
+    prb=$1
+fi
+
+echo "========= try to compile and execute problem '$prb' ========="
 
 # find working directory
-work_dir=$(find ~/Git/online-judge -type d -name $1 | head -n 1)
+work_dir=$(find ~/Git/online-judge -type d -name $prb | head -n 1)
 if [[ $work_dir ]]; then
 	echo "working directory:\t$work_dir"
 else
@@ -15,9 +22,9 @@ else
 fi
 
 # compile
-cmp_res=$(g++ $work_dir/$1.cpp -o $work_dir/$1.out)
+cmp_res=$(g++ $work_dir/$prb.cpp -o $work_dir/$prb.out)
 echo "compile result:\t\t$cmp_res"
-if [ -f $work_dir/$1.out ]; then
+if [ -f $work_dir/$prb.out ]; then
 	echo "executable file:\tfound"
 else
 	echo "executable file:\tnot found"
@@ -27,7 +34,7 @@ fi
 # execute all input files
 for in_file in $(find $work_dir -name 'ex_in[1-9]')
 do
-    exe=$($work_dir/$1.out < $in_file > $work_dir/my_out${in_file: -1})
+    exe=$($work_dir/$prb.out < $in_file > $work_dir/my_out${in_file: -1})
     if [[ $exe ]]; then
         echo $exe
     fi
@@ -50,3 +57,5 @@ done
 if [ $pass = true ]; then
     echo "passed all examples"
 fi
+
+echo $prb > cached_problem
