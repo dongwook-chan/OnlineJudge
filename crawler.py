@@ -26,7 +26,7 @@ soup = BeautifulSoup(req.text,"html.parser")
 tags = soup.findAll('pre', attrs={'class': 'sampledata'})
 
 for i in range(len(tags)):
-    file_type = "out" if i % 2 else "in"
+    file_type = "ex_out" if i % 2 else "ex_in"
     file_number = str(i // 2 + 1)
     file_name = file_type + file_number
     #with open(os.path.join("BOJ/10998", file_name), 'w') as fp:

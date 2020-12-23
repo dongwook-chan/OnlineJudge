@@ -24,10 +24,29 @@ else
 	exit 1
 fi
 
-# execute
-exe_res=$($work_dir/$1.out < $work_dir/in > $work_dir/out)
-echo "execute result:\t\t$exe_res"
+# execute all input files
+for in_file in $(find $work_dir -name 'ex_in[1-9]')
+do
+    exe=$($work_dir/$1.out < $in_file > $work_dir/my_out${in_file: -1})
+    if [[ $exe ]]; then
+        echo $exe
+    fi
+done
 
-# read output
-out=$(cat $work_dir/out)
-echo "out file:\n$out"
+# compare result
+pass=true
+for out_file in $(find $work_dir -name 'ex_out[1-9]')
+do
+    dif=$(diff -Bb $out_file $work_dir/my_out${out_file: -1})
+    if [[ $dif ]]; then
+        pass=false
+        echo "correct output for example ${out_file: -1}:"
+        echo $(cat $out_file)
+        echo "wrong output for example ${out_file: -1}:"
+        echo $(cat $work_dir/my_out${out_file: -1})
+    fi
+done
+
+if [ $pass = true ]; then
+    echo "passed all examples"
+fi
