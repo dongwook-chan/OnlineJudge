@@ -10,7 +10,7 @@ int main(){
     int A, B;
     cin >> A >> B;
 
-    cout << (unsigned long long double) A / B;
+    cout << (double) A / (double) B;
 
     return 0;
 }
