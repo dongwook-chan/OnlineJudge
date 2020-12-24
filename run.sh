@@ -55,7 +55,10 @@ do
 done
 
 if [ $pass = true ]; then
-    echo "passed all examples"
+    echo "passed all examples and updating git:"
+    git add $work_dir
+    git commit -m solved\ problem\ $prb
+    git push
 fi
 
 echo $prb > cached_problem
