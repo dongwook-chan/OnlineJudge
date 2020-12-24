@@ -7,10 +7,10 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    int A, B;
+    double A, B;
     cin >> A >> B;
 
-    cout << (double) A / (double) B;
+    cout << A / B;
 
     return 0;
 }
