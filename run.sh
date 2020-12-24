@@ -22,7 +22,7 @@ else
 fi
 
 # compile
-cmp_res=$(g++ $work_dir/$prb.cpp -o $work_dir/$prb.out)
+cmp_res=$(g++ -std=c++17 $work_dir/$prb.cpp -o $work_dir/$prb.out)
 echo "compile result:\t\t$cmp_res"
 if [ -f $work_dir/$prb.out ]; then
 	echo "executable file:\tfound"
@@ -48,9 +48,9 @@ do
     if [[ $dif ]]; then
         pass=false
         echo "correct output for example ${out_file: -1}:"
-        echo $(cat $out_file)
+        cat $out_file
         echo "wrong output for example ${out_file: -1}:"
-        echo $(cat $work_dir/my_out${out_file: -1})
+        cat $work_dir/my_out${out_file: -1}
     fi
 done
 
