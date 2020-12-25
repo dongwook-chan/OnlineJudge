@@ -90,10 +90,10 @@ int main(){
     while(C.back() == '0'){
         C.pop_back();
     }
+    if(res_sign) C.push_back('-');
 
     reverse(C.begin(), C.end());
-    string res = (res_sign ? "-" : "") + C;
-    cout << res;
+    cout << C;
     
     return 0;
 }
