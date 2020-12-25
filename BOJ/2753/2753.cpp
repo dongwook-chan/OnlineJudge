@@ -10,7 +10,7 @@ int main(){
     int year;
     cin >> year;
 
-    cout << !(year % 4) && (year % 100);
+    cout << !(year % 4) && ((year % 100) || !(year % 400));
 
     return 0;
 }
