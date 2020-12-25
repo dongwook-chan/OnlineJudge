@@ -15,9 +15,7 @@ int main(){
     do {
         int adj_M = (M / 10) ? M : M * 10;
         M = (M % 10) * 10 + (adj_M / 10 + adj_M % 10) % 10;
-        //cout << M << endl;;
         ++i;
-        if(i == 70) break;
     } while (M != N);
 
     cout << i;
