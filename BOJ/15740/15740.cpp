@@ -30,24 +30,20 @@ int main(){
         res_sign = false;
     }
     else if (A.front() != '-' && B.front() == '-'){
-        B = B.substr(1, B.length() - 1);
-
         addition = false;
         res_sign = cmp(A, B);
     }
     else if (A.front() == '-' && B.front() != '-'){
-        A = A.substr(1, A.length() - 1);
-
         addition = false;
         res_sign = cmp(B, A);
     }
     else if (A.front() == '-' && B.front() == '-'){
-        A = A.substr(1, A.length() - 1);
-        B = B.substr(1, B.length() - 1);
-
         addition = true;
         res_sign = true;
     }
+
+    A = (A.front() == '-') ? A.substr(1, A.length() - 1) : A;
+    B = (B.front() == '-') ? B.substr(1, B.length() - 1) : B;
     
     string C;
     if(addition){
