@@ -9,3 +9,6 @@
 
 # problem cache
 cached_problem
+
+# vs code
+.vscode/
