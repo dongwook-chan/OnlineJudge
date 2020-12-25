@@ -65,7 +65,7 @@ int main(){
             if(B.length()) B.pop_back();
         }
         if(carry){
-            C.push_back(carry + '0');
+            C.push_back('1');
         }
     }
     else{
