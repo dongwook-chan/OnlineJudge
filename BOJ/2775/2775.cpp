@@ -1,3 +1,5 @@
+// 1. C(28, r)까지 나올 수 있기 때문에 combination table size를 28로 해야
+
 #include <iostream>
 
 using namespace std;
@@ -7,8 +9,8 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    int combination[15][15] = {0};
-    for(int i = 0; i <= 14; ++i){
+    int combination[28][28] = {0};
+    for(int i = 0; i <= 27; ++i){
         combination[i][0] = combination[i][i] = 1;
 
         for(int j = 1; j < i; ++j){
