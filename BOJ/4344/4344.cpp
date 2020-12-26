@@ -29,7 +29,7 @@ int main(){
             if(score[i] > avg) ++ctr;
         }
 
-        cout << left << (float) ctr / N * 100.0 << "%\n";
+        cout << left << (long double) ctr / N * 100.0 << "%\n";
     }
 
     return 0;
