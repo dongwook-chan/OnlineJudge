@@ -14,7 +14,7 @@ int main(){
         cout << -1;
     }
     else{
-        cout << A / (C - B) + (A % (C - B) >= 0);
+        cout << A / (C - B) + 1;
     }
 
     return 0;
