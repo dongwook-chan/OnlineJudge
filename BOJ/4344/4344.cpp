@@ -8,7 +8,7 @@ int main(){
     cin.tie(0);
     cout.tie(0);
     cout.precision(3);
-    cout.setf(ios::fixed, ios::floatfield);
+    cout.setf(ios::fixed);
 
     int C;
     cin >> C;
