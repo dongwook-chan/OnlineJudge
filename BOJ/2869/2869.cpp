@@ -10,7 +10,7 @@ int main(){
 
     int A, B, V;
     cin >> A >> B >> V;
-    cout << max((V - A) / (A - B), 1) + 1;
+    cout << (V - A) / (A - B) + 1 + ((V - A) % (A - B) > 0);
 
     return 0;
 }
