@@ -11,7 +11,7 @@ int main(){
     int x, y, w, h;
     cin >> x >> y >> w >> h;
 
-    cout << min({h - y, y, w - x, w});
+    cout << min({h - y, y, w - x, x});
 
     return 0;
 }
