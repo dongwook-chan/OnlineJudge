@@ -1,3 +1,7 @@
+# usage
+## $ ./run.sh { 'problem_number' | 'problem_name' }     # run solution for specified problem
+## $ ./run.sh                                           # run solution for the cached problem
+
 # check the number of paramters
 if [ "$#" -ge 2 ]; then
 	echo "argument test:\tillegal number of parameters"
