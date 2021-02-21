@@ -1,3 +1,6 @@
+# usage:
+## $ ./new.sh {BOJ|Programmers} {'problem_number'|'problem_name'}
+
 # check the number of paramters
 if [ "$#" -ne 2 ]; then
         echo "argument test:\tillegal number of parameters"
@@ -31,14 +34,16 @@ if [ ! -f $work_dir/$2.cpp ]; then
 fi
 
 if [ -f $work_dir/$2.cpp ]; then
-	echo "cpp file created"
+    echo "cpp file created"
 else
-	echo "failed to create cpp file"
-	exit 1
+    echo "failed to create cpp file"
+    exit 1
 fi
 
 # create input files
-crawl_res=$(python3 crawler.py $work_dir $2)
-echo $crawl_res
+if [ $1 == "BOJ" ]; then
+    crawl_res=$(python3 crawler.py $work_dir $2)
+    echo $crawl_res
+fi
 
 echo $2 > cached_problem
