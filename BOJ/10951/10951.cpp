@@ -8,9 +8,7 @@ int main(){
     cout.tie(0);
 
     int A, B;
-    while(1){
-        cin >> A >> B;
-        if(cin.eof()) break;
+    while(cin >> A >> B){
         cout << A + B << '\n';
     }
 
