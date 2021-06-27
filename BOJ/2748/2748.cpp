@@ -7,7 +7,7 @@ using namespace std;
 
 vector<long long> lookup (91, NIL);
 
-int fib (int n){
+long long fib (int n){
     if (lookup[n] == NIL){
         if (n <= 1){
             lookup[n] = n;
@@ -26,7 +26,7 @@ int main(){
 
     int n;
     cin >> n;
-
+    
     cout << fib(n);
 
     return 0;
