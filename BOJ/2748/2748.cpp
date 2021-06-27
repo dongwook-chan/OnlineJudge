@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<long long> lookup (46, NIL);
+vector<long long> lookup (91, NIL);
 
 int fib (int n){
     if (lookup[n] == NIL){
