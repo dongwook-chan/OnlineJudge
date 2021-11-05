@@ -1,10 +1,10 @@
 #include <iostream>
-#include <set>
+#include <vector>
 #include <queue>
 
 using namespace std;
 
-set<int> adj_list [1001];
+vector<int> adj_list [1001];
 bool visited [1001];
 
 void dfs(int n1) {
@@ -50,8 +50,12 @@ int main(){
         int n1, n2;
         cin >> n1 >> n2;
 
-        adj_list[n1].emplace(n2);
-        adj_list[n2].emplace(n1);
+        adj_list[n1].push_back(n2);
+        adj_list[n2].push_back(n1);
+    }
+
+    for (int n = 1; n <= N; ++n) {
+        sort(adj_list[n].begin(), adj_list[n].end()); 
     }
 
     dfs(V);
