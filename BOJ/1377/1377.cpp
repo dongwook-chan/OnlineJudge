@@ -7,14 +7,12 @@
 
 using namespace std;
 
-
 vector<int> idx_of_number[MAX_NUMBER + 1];
 
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-
 
     int N;
     cin >> N;
@@ -26,12 +24,14 @@ int main(){
     }
 
     int number = 0;
-    for (int sorted_idx = 0; sorted_idx < N; ++sorted_idx) {
+    for (int sorted_idx = 0; sorted_idx < N;) {
+        vector<int> *initial_idxs;
         while (true) {
-            if (idx_of_number[number].size()) break;
-            else ++number;
+            initial_idxs = &(idx_of_number[number++]);
+            if (initial_idxs->size()) break;
         }
-        sort(idx_of_number[number].begin(), idx_of_number[number].end(), [&sorted_idx](int const &initial_idx1, int const &initial_idx2) -> bool const {return abs(sorted_idx - initial_idx1) > abs(sorted_idx - initial_idx2);});
+        sort(initial_idxs->begin(), initial_idxs->end(), [&sorted_idx](int const &initial_idx1, int const &initial_idx2) -> bool const {return abs(sorted_idx - initial_idx1) > abs(sorted_idx - initial_idx2);});
+        sorted_idx += initial_idxs->size();
     }
 
     number = 0;
