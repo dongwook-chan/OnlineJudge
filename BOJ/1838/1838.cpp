@@ -18,11 +18,10 @@ int main(){
 
     for (int i = 0; i < N; ++i) {
         cin >> numbers[i];
+        idx[i] = i;
     }
 
-    iota(idx, idx + N, 0);
-
-    sort(idx, idx + N, [&numbers](auto idx1, auto idx2) {return numbers[idx1] < numbers[idx2];});
+    sort(idx, idx + N, [&numbers](int const &idx1, int const &idx2) -> bool const {return numbers[idx1] < numbers[idx2];});
 
     int answer = 0;
     for (int i = 0; i < N - 1; ++i) {
