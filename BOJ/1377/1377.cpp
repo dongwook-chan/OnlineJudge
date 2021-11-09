@@ -12,8 +12,8 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    int *idx_of_number = new int[MAX_NUMBER + 1];
-    memset(idx_of_number, -1, sizeof(int) * (MAX_NUMBER + 1));
+    int idx_of_number[MAX_NUMBER + 1];
+    memset(idx_of_number, -1, sizeof(idx_of_number));
 
     int N;
     cin >> N;
