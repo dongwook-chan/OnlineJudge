@@ -2,7 +2,8 @@
 
 using namespace std;
 
-bool input_ctr[1000001];
+bool input_ctr_natural[2000001];
+bool *input_ctr = input_ctr_natural + 1000000;
 
 int main(){
     ios_base::sync_with_stdio(0);
@@ -17,7 +18,7 @@ int main(){
         input_ctr[input] = true;
     }
 
-    for (int i = 0; i < 1000001; ++i){
+    for (int i = -1000000; i < 1000001; ++i){
         if (input_ctr[i]) {
             cout << i << '\n';
         }
