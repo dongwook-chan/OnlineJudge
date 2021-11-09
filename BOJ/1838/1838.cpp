@@ -24,19 +24,13 @@ int main(){
     sort(idx, idx + N, [&numbers](int const &idx1, int const &idx2) -> bool const {return numbers[idx1] < numbers[idx2];});
 
     int answer = 0;
-    for (int i = 0; i < N - 1; ++i) {
+    for (int i = 0; i < N; ++i) {
         int sorted_pos = i;
         int initial_pos = idx[i];
         int max_diff = N - 1 - i;
-        int diff = abs(sorted_pos - initial_pos);
+        int diff = abs(i - idx[i]);
         answer = max(answer, min(max_diff, diff));
     }
-
-    int sorted_pos = N - 1;
-    int initial_pos = idx[N - 1];
-    int max_diff = 1;
-    int diff = abs(sorted_pos - initial_pos);
-    answer = max(answer, min(max_diff, diff));
 
     cout << answer;
 
