@@ -16,7 +16,7 @@ int main(){
         int N;
         cin >> N;
 
-        int rank_of_idx[2][100001];
+        int rank_of_idx[100000][2];
         for (int i = 0; i < N; ++i) {
             cin >> rank_of_idx[i][0];
             cin >> rank_of_idx[i][1];
