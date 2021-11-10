@@ -18,65 +18,16 @@ int main(){
 
         int rank_of_idx[2][100001];
         for (int i = 0; i < N; ++i) {
-            cin >> rank_of_idx[0][i];
-            cin >> rank_of_idx[1][i];
-            --rank_of_idx[0][i];
-            --rank_of_idx[1][i];
+            cin >> rank_of_idx[i][0];
+            cin >> rank_of_idx[i][1];
+            --rank_of_idx[i][0];
+            --rank_of_idx[i][1];
         }
 
-        bool is_accepted_idx[100001] = {false};
-        bool is_rejected_idx[100001] = {false};
-        int idx_of_rank[2][100001];
-        iota(idx_of_rank[0], idx_of_rank[0] + N, 0);
-        memcpy(idx_of_rank[1], idx_of_rank[0], sizeof(idx_of_rank[0]));
+        sort(rank_of_idx, rank_of_idx + N, [](int const *rank1, int const *rank2) -> bool const {
+            return rank1[0] < rank2[0];
+        });
 
-        for (int i = 0; i < 2; ++i) {
-            sort(idx_of_rank[i], idx_of_rank[i] + N, [&i, &rank_of_idx](int const &index1, int const &index2) -> bool const {
-                return rank_of_idx[i][index1] < rank_of_idx[i][index2];
-            });
-        }
-
-        /*
-        for (int i = 0; i < 2; ++i) {
-            for (int j = 0; j < N; ++j) {
-                cout << idx_of_rank[i][j] << ' ';
-            } 
-            cout << endl;
-        }
-        */
-
-        int answer = 0;
-
-        for (int i = 0; i < 1; ++i) {
-            //cout << "ranking" << i << " first\n";
-            // rank1을 기준으로 outer for loop
-            for (int ranking1 = 0; ranking1 < N; ++ranking1) {
-                //cout << "  ㄴ ranking" << i << ": " << ranking1 << endl;
-                // initial_index for ranking1
-                // ranking2 for initial_index
-                int index1 = idx_of_rank[i][ranking1];
-                if (is_accepted_idx[index1] || is_rejected_idx[index1]) continue;
-
-                is_accepted_idx[index1] = true; 
-                ++answer;
-                
-                //cout << "  find any ranking" << !i << " higher than rank of idx" << index1 << ", " << rank_of_idx[!i][index1] << endl;
-                // any ranking2 higher than ranking2 of initial_index
-                for (int ranking2 = rank_of_idx[!i][index1] + 1; ranking2 < N; ++ranking2) {
-                    //cout << "    ㄴ ranking" << !i << ": " << ranking2 << endl;
-
-                    // reject corresponding index2
-                    int index2 = idx_of_rank[!i][ranking2];
-                    if (is_accepted_idx[index2] || is_rejected_idx[index2]) continue;
-
-                    //cout << "      idx" << index2 << " of ranking" << i << ": " << rank_of_idx[i][index2] << " and ranking" << !i << ": " << rank_of_idx[!i][index2] << " rejected" << endl; 
-                    //--answer;
-                    is_rejected_idx[index2] = true;
-                }
-            }
-        }
-
-        cout << answer << '\n';
     }
 
     return 0;
