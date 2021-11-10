@@ -47,7 +47,7 @@ int main(){
 
         int answer = 0;
 
-        for (int i = 0; i < 2; ++i) {
+        for (int i = 0; i < 1; ++i) {
             //cout << "ranking" << i << " first\n";
             // rank1을 기준으로 outer for loop
             for (int ranking1 = 0; ranking1 < N; ++ranking1) {
