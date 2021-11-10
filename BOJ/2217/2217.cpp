@@ -12,12 +12,12 @@ int main(){
     int N;
     cin >> N;
 
-    short ropes[100000];
+    int ropes[100000];
     for (int i = 0; i < N; ++i) {
         cin >> ropes[i]; 
     }    
 
-    sort(ropes, ropes + N, greater<short>());
+    sort(ropes, ropes + N, greater<int>());
 
     for (int i = 0; i < N; ++i) {
         ropes[i] *= (i + 1); 
