@@ -15,7 +15,12 @@ int main(){
 
     sort(number.begin(), number.end(), greater<char>());
 
-    if (number.back() != '0') {
+    int digit_sum = 0;
+    for (auto digit : number) {
+        digit_sum += digit - '0';
+    }
+
+    if (number.back() != '0' || digit_sum % 3) {
         cout << -1;
     }
     else {
