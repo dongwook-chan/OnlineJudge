@@ -20,26 +20,37 @@ int main(){
         for (int i = 0; i < N; ++i) {
             cin >> rank_of_idx[0][i];
             cin >> rank_of_idx[1][i];
+            --rank_of_idx[0][i];
+            --rank_of_idx[1][i];
         }
 
         bool is_accepted_idx[100001] = {false};
         bool is_rejected_idx[100001] = {false};
         int idx_of_rank[2][100001];
-        iota(idx_of_rank[0] + 1, idx_of_rank[0] + N + 1, 0);
+        iota(idx_of_rank[0], idx_of_rank[0] + N, 0);
         memcpy(idx_of_rank[1], idx_of_rank[0], sizeof(idx_of_rank[0]));
 
         for (int i = 0; i < 2; ++i) {
-            sort(idx_of_rank[i] + 1, idx_of_rank[i] + N + 1, [&i, &rank_of_idx](int const &index1, int const &index2) -> bool const {
+            sort(idx_of_rank[i], idx_of_rank[i] + N, [&i, &rank_of_idx](int const &index1, int const &index2) -> bool const {
                 return rank_of_idx[i][index1] < rank_of_idx[i][index2];
             });
         }
+
+        /*
+        for (int i = 0; i < 2; ++i) {
+            for (int j = 0; j < N; ++j) {
+                cout << idx_of_rank[i][j] << ' ';
+            } 
+            cout << endl;
+        }
+        */
 
         int answer = 0;
 
         for (int i = 0; i < 2; ++i) {
             //cout << "ranking" << i << " first\n";
             // rank1을 기준으로 outer for loop
-            for (int ranking1 = 1; ranking1 <= N; ++ranking1) {
+            for (int ranking1 = 0; ranking1 < N; ++ranking1) {
                 //cout << "  ㄴ ranking" << i << ": " << ranking1 << endl;
                 // initial_index for ranking1
                 // ranking2 for initial_index
@@ -49,9 +60,9 @@ int main(){
                 is_accepted_idx[index1] = true; 
                 ++answer;
                 
-                //cout << "  find any ranking" << !i << " higher than " << rank_of_idx[!i][index1] << endl;
+                //cout << "  find any ranking" << !i << " higher than rank of idx" << index1 << ", " << rank_of_idx[!i][index1] << endl;
                 // any ranking2 higher than ranking2 of initial_index
-                for (int ranking2 = rank_of_idx[!i][index1] + 1; ranking2 <= N; ++ranking2) {
+                for (int ranking2 = rank_of_idx[!i][index1] + 1; ranking2 < N; ++ranking2) {
                     //cout << "    ㄴ ranking" << !i << ": " << ranking2 << endl;
 
                     // reject corresponding index2
