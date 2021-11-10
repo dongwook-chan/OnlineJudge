@@ -24,7 +24,12 @@ int main(){
     int idx[100000];
     iota(idx, idx + N, 0);
 
-    /*
+
+
+    stable_sort(idx, idx + N, [&names](int const &idx1, int const &idx2) -> bool const {
+        return names[idx1] < names[idx2];
+    });
+
     stable_sort(idx, idx + N, [&scores](int const &idx1, int const &idx2) -> bool const {
         return scores[idx1][2] > scores[idx2][2];
     });
@@ -36,9 +41,10 @@ int main(){
     stable_sort(idx, idx + N, [&scores](int const &idx1, int const &idx2) -> bool const {
         return scores[idx1][0] > scores[idx2][0];
     });
-    */
 
+    
    
+    /*
     stable_sort(idx, idx + N, [&scores, &names](int const &idx1, int const &idx2) -> bool const {
         if (scores[idx1][0] == scores[idx2][0]) {
             if (scores[idx1][1] == scores[idx2][1]) {
@@ -51,6 +57,7 @@ int main(){
         }
         else return scores[idx1][0] > scores[idx2][0];
     });
+    */
 
     for (int i = 0; i < N; ++i) {
         cout << names[idx[i]] << '\n';
