@@ -54,6 +54,10 @@ int main(){
         bf(1, tgt_MSD, chl_len);
     }
 
+    if (chl_len == 1) {
+        bf(0, 0, chl_len);
+    }
+    
     int MSD;
     for (MSD = tgt_MSD - 1; MSD >= 0; --MSD) {
         if (!err_dgt[MSD]) break;
@@ -76,6 +80,7 @@ int main(){
     if (dgts.size() && chl_len > 1) {
         bf(1, *max_element(dgts.begin(), dgts.end()), chl_len - 1);
     }
+
 
     cout << answer;
 
