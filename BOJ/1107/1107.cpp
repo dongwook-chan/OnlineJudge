@@ -54,10 +54,6 @@ int main(){
         bf(1, tgt_MSD, chl_len);
     }
 
-    if (chl_len == 1) {
-        bf(0, 0, chl_len);
-    }
-    
     int MSD;
     for (MSD = tgt_MSD - 1; MSD >= 0; --MSD) {
         if (!err_dgt[MSD]) break;
