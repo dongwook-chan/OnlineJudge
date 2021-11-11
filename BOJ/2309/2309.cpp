@@ -4,8 +4,8 @@
 
 using namespace std;
 
-int height_of_dwarf[9];
-int height_of_real_dwarf[7];
+int hgt_of_dwarf[9];
+int hgt_of_real[7];
 
 int main(){
     ios_base::sync_with_stdio(0);
@@ -13,31 +13,29 @@ int main(){
     cout.tie(0);
 
     for (int dwarf = 0; dwarf < 9; ++dwarf) {
-        cin >> height_of_dwarf[dwarf];
+        cin >> hgt_of_dwarf[dwarf];
     }
 
-    int sum = accumulate(height_of_dwarf, height_of_dwarf + 9, 0);
+    int hgt_sum_of_fakes = accumulate(hgt_of_dwarf, hgt_of_dwarf + 9, 0) - 100;
 
-    int fake_dwarf1, fake_dwarf2;
-    for (fake_dwarf1 = 0; fake_dwarf1 < 8; ++fake_dwarf1) {
-        for(fake_dwarf2 = fake_dwarf1 + 1; fake_dwarf2 < 9; ++fake_dwarf2) {
-            if (sum - height_of_dwarf[fake_dwarf1] - height_of_dwarf[fake_dwarf2] == 100) {
-                goto end;          
+    int fake_hgt1, fake_hgt2;
+    for (int fake1 = 0; fake1 < 8; ++fake1) {
+        for(int fake2 = fake1 + 1; fake2 < 9; ++fake2) {
+            if (hgt_of_dwarf[fake1] + hgt_of_dwarf[fake2] == hgt_sum_of_fakes) {
+                fake_hgt1 = hgt_of_dwarf[fake1];
+                fake_hgt2 = hgt_of_dwarf[fake2];
+                goto end;
             }
         }
     }
 
 end:
-    int real_dwarf = 0;
+    sort (hgt_of_dwarf, hgt_of_dwarf + 9);
+
     for (int dwarf = 0; dwarf < 9; ++dwarf) {
-        if (dwarf == fake_dwarf1 || dwarf == fake_dwarf2) continue;
-        height_of_real_dwarf[real_dwarf++] = height_of_dwarf[dwarf];
-    }
-
-    sort(height_of_real_dwarf, height_of_real_dwarf + 7);
-
-    for (int real_dwarf = 0; real_dwarf < 7; ++real_dwarf) {
-        cout << height_of_real_dwarf[real_dwarf] << '\n';
+        int hgt = hgt_of_dwarf[dwarf];
+        if (hgt == fake_hgt1 || hgt == fake_hgt2) continue;
+        cout << hgt << '\n';
     }
     
     return 0;
