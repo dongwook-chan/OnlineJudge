@@ -12,10 +12,10 @@ int chl_len;
 int answer;
 
 void bf(int pos, int chl){
-    if (pos) {
-        answer = min(answer, pos + abs(N - chl));
+    if (pos) {      
+        answer = min(answer, pos + abs(N - chl)); // 하나도 선택되지 않았을 때의 거리는 abs(N - 100), 본 거리 공식은 적어도 한 개가 선택됐을 경우에만 적용됨
     }
-    
+
     if (pos > chl_len) return;
 
     for (int dgt : dgts) {
