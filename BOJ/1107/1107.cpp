@@ -11,15 +11,14 @@ vector<int> dgts;
 int chl_len;
 int answer;
 
-void bf(int pos, int chl){
-    if (pos) {      
+void bf(int pos, int chl, int chl_len){
+    if (pos == chl_len) {
         answer = min(answer, pos + abs(N - chl)); // 하나도 선택되지 않았을 때의 거리는 abs(N - 100), 본 거리 공식은 적어도 한 개가 선택됐을 경우에만 적용됨
+        return;
     }
 
-    if (pos > chl_len) return;
-
     for (int dgt : dgts) {
-        bf(pos + 1, chl * 10 + dgt);
+        bf(pos + 1, chl * 10 + dgt, chl_len);
     }
 }
 
@@ -46,10 +45,35 @@ int main(){
         dgts.push_back(dgt);
     }
 
-    answer = abs(N - 100);
+    answer = abs(N - 100);  // '거리'를 구하는 것이므로 abs 사용
 
     chl_len = to_string(N).size();
-    bf(0, 0);
+    int tgt_MSD = to_string(N)[0] - '0';
+
+    if (!err_dgt[tgt_MSD]) {
+        bf(1, tgt_MSD, chl_len);
+    }
+
+    int MSD;
+    for (MSD = tgt_MSD - 1; MSD >= 0; --MSD) {
+        if (!err_dgt[MSD]) break;
+    }
+    if (MSD >= 0) {
+        bf(1, MSD, chl_len);
+    }
+
+    for (MSD = tgt_MSD + 1; MSD < 10; ++MSD) {
+        if (!err_dgt[MSD]) break;
+    }
+    if (MSD < 10) {
+        bf(1, MSD, chl_len);
+    }
+    
+    bf(1, 1, chl_len + 1);
+
+    if (chl_len > 1) {
+        bf(1, 9, chl_len - 1);
+    }
 
     cout << answer;
 
