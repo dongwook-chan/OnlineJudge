@@ -69,10 +69,10 @@ int main(){
         bf(1, MSD, chl_len);
     }
     
-    bf(1, 1, chl_len + 1);
+    bf(1, *min_element(dgts.begin(), dgts.end()), chl_len + 1);
 
     if (chl_len > 1) {
-        bf(1, 9, chl_len - 1);
+        bf(1, *max_element(dgts.begin(), dgts.end()), chl_len - 1);
     }
 
     cout << answer;
