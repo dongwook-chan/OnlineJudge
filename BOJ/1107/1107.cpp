@@ -12,10 +12,9 @@ int chl_len;
 int answer;
 
 void bf(int pos, int chl){
-    if (pos == chl_len) {
-        answer = min(answer, chl_len + abs(N - chl));
-        return;
-    }
+    answer = min(answer, chl_len + abs(N - chl));
+
+    if (pos > chl_len) return;
 
     for (int dgt : dgts) {
         bf(pos + 1, chl * 10 + dgt);
