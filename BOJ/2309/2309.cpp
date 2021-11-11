@@ -5,7 +5,7 @@
 using namespace std;
 
 int height_of_dwarf[9];
-int dwarves[9];
+int height_of_real_dwarf[7];
 
 int main(){
     ios_base::sync_with_stdio(0);
@@ -28,15 +28,16 @@ int main(){
     }
 
 end:
-    iota (dwarves, dwarves + 9, 0);
-    sort (dwarves, dwarves + 9, [](int const &dwarf1, int const &dwarf2) -> bool const {
-        return height_of_dwarf[dwarf1] < height_of_dwarf[dwarf2];
-    });
-
-    for (int rank = 0; rank < 9; ++rank) {
-        int dwarf = dwarves[rank];
+    int real_dwarf = 0;
+    for (int dwarf = 0; dwarf < 9; ++dwarf) {
         if (dwarf == fake_dwarf1 || dwarf == fake_dwarf2) continue;
-        cout << height_of_dwarf[dwarf] << '\n';
+        height_of_real_dwarf[real_dwarf++] = height_of_dwarf[dwarf];
+    }
+
+    sort(height_of_real_dwarf, height_of_real_dwarf + 7);
+
+    for (int real_dwarf = 0; real_dwarf < 7; ++real_dwarf) {
+        cout << height_of_real_dwarf[real_dwarf] << '\n';
     }
     
     return 0;
