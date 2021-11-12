@@ -14,11 +14,10 @@ int main(){
 
     cin >> N;
 
-    int no;
-    for (int i = 0; i < 9; ++i) {
-        int no_bound = no_bounds[i + 1];
-        for (no = no_bounds[i] ; no < no_bound && no <= N; ++no) {
-            ans += i + 1;
+    int no = 1;
+    for (int i = 1; i < 9; ++i) {
+        for (; no < no_bounds[i] && no <= N; ++no) {
+            ans += i;
         }
     }
 
