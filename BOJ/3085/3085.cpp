@@ -9,32 +9,29 @@ string brd[50];
 int ans;
 
 void eat(){
-	char clr;
 	int clr_ctr;
 	
 	for (int y = 0; y < N; ++y) {
-		clr = -1;
-		for (int x = 0; x < N; ++x) {
-			if (brd[y][x] == clr) {
+		clr_ctr = 1;
+		for (int x = 1; x < N; ++x) {
+			if (brd[y][x - 1] == brd[y][x]) {
 				++clr_ctr;
 				ans = max(ans, clr_ctr);
 			}
 			else {
-				clr = brd[y][x];
 				clr_ctr = 1;
 			}
 		}
 	}
 
 	for (int x = 0; x < N; ++x) {
-		clr = -1;
-		for (int y = 0; y < N; ++y) {
-			if (brd[y][x] == clr) {
+		clr_ctr = 1;
+		for (int y = 1; y < N; ++y) {
+			if (brd[y - 1][x] == brd[y][x]) {
 				++clr_ctr;
 				ans = max(ans, clr_ctr);
 			}
 			else {
-				clr = brd[y][x];
 				clr_ctr = 1;
 			}
 		}
