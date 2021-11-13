@@ -39,7 +39,6 @@ int main(){
     cin >> N >> M;
     for (int y = 0; y < N; ++y) {
         for (int x = 0; x < M; ++x) {
-            //cout << "start dfs for vertex" << y << ", " << x << endl;
             cin >> paper[y][x];
         }
     }
