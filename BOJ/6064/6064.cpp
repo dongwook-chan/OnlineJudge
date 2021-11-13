@@ -19,7 +19,7 @@ int main(){
         
         int LCM = lcm(M, N);
 
-        int quo_max = LCM / N;
+        int quo_max = LCM / M;
         for (int quo = 0; quo < quo_max; ++quo) {
             int div = M * quo + x;
             if (div % N == y) {
