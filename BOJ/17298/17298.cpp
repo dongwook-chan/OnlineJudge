@@ -21,7 +21,7 @@ int main(){
     for (int i = N - 1; i >= 0; --i) {
         int a = A[i];
 
-        while (stk.size() && stk.back() < a) {
+        while (stk.size() && stk.back() <= a) {
             stk.pop_back();
         }
 
