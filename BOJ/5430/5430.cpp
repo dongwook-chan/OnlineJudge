@@ -31,6 +31,7 @@ int main(){
                     break;
             }
         }
+        //cout << "fuck1\n";
 
         deque<int> dq;
         string no;
@@ -50,16 +51,18 @@ int main(){
                     break;
             }
         }
-
-        if (is_rvs) {
-            reverse(dq.begin(), dq.end());
-        }
+        //cout << "fuck2\n";
+        //cout << dq.size() << " " << front_ctr << " " << back_ctr << endl; 
 
         if (front_ctr + back_ctr > dq.size()) {
             cout << "error\n";
             continue;
         }
 
+        if (is_rvs) {
+            reverse(dq.begin(), dq.end());
+        }
+ 
         while (dq.size() && front_ctr--) {
             //cout << "popped" << endl;
             dq.pop_front();
@@ -68,21 +71,22 @@ int main(){
         while (dq.size() && back_ctr--) {
             dq.pop_back();
         }
-    
-        int last_no;
-        
-        if (dq.size()) {
-            last_no = dq.back();
-            dq.pop_back();
-        }
 
+        //cout << "fuck3\n";
+        //cout << dq.size() << " " << front_ctr << " " << back_ctr << endl; 
+    
         cout << '[';
-        for (int no : dq) {
-            cout << no << ',';
+        for (int i = 0; i < (int) dq.size() - 1; ++i) {
+            //cout << "fufufuffu" << endl;
+            cout << dq[i] << ',';
         }
-        if (n) {
-            cout << last_no;
+        //cout << "fuck4\n";
+
+        if (dq.size()) {
+            cout << dq.back();
         }
+        //cout << "fuck5\n";
+
         cout << "]\n";
     }
 
