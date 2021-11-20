@@ -55,9 +55,7 @@ int main(){
             reverse(dq.begin(), dq.end());
         }
 
-        //cout << dq.size() << " " << is_rvs << " " << front_ctr << " " << back_ctr << " \n";
-
-        if (front_ctr + back_ctr > n) {
+        if (front_ctr + back_ctr > dq.size()) {
             cout << "error\n";
             continue;
         }
@@ -71,14 +69,21 @@ int main(){
             dq.pop_back();
         }
     
-        int last_no = dq.back();
-        dq.pop_back();
+        int last_no;
+        
+        if (dq.size()) {
+            last_no = dq.back();
+            dq.pop_back();
+        }
 
         cout << '[';
         for (int no : dq) {
             cout << no << ',';
         }
-        cout << last_no << "]\n";
+        if (n) {
+            cout << last_no;
+        }
+        cout << "]\n";
     }
 
     return 0;
