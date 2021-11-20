@@ -57,6 +57,11 @@ int main(){
 
         //cout << dq.size() << " " << is_rvs << " " << front_ctr << " " << back_ctr << " \n";
 
+        if (front_ctr + back_ctr > n) {
+            cout << "error\n";
+            continue;
+        }
+
         while (dq.size() && front_ctr--) {
             //cout << "popped" << endl;
             dq.pop_front();
@@ -65,22 +70,15 @@ int main(){
         while (dq.size() && back_ctr--) {
             dq.pop_back();
         }
+    
+        int last_no = dq.back();
+        dq.pop_back();
 
-        //cout << dq.size() << " " << front_ctr << " " << back_ctr << " \n";
-
-        if (dq.empty() && (front_ctr || back_ctr)) {
-            cout << "error\n";
+        cout << '[';
+        for (int no : dq) {
+            cout << no << ',';
         }
-        else {
-            int last_no = dq.back();
-            dq.pop_back();
-
-            cout << '[';
-            for (int no : dq) {
-                cout << no << ',';
-            }
-            cout << last_no << "]\n";
-        }
+        cout << last_no << "]\n";
     }
 
     return 0;
