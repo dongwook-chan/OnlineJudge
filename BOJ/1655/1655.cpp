@@ -11,19 +11,23 @@ int main() {
     cout.tie(0);
 
     priority_queue<int, vector<int>, greater<int>> min_heap;
+    priority_queue<int> max_heap;
     
     int N;
     cin >> N;
 
+    int no;
     for (int no_ctr = 1; no_ctr <= N; ++no_ctr) {
-        int no;
         cin >> no;
 
-        min_heap.push(no);
+        max_heap.push(no);
+        min_heap.push(max_heap.top());
+        max_heap.pop();
         
         int min_heap_size = no_ctr / 2 + 1;
-
+        
         if (min_heap.size() > min_heap_size) {
+            max_heap.push(min_heap.top());
             min_heap.pop();
         }
 
