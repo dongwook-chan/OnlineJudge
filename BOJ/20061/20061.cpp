@@ -82,7 +82,7 @@ int main() {
                 if (!green_brd[x_][y_]) goto end1;
             }
             ++score;
-            for (int x__ = x_; x__ >= 2; --x__) {
+            for (int x__ = x_; x__ >= 1; --x__) {   /* 틀린 부분 */
                 for (int y_ = 0; y_ < 4; ++y_) {
                     green_brd[x__][y_] = green_brd[x__ - 1][y_];
                 }
@@ -174,7 +174,7 @@ int main() {
                 if (!blue_brd[x_][y_]) goto end3;
             }
             ++score;
-            for (int y__ = y_; y__ >= 2; --y__) {
+            for (int y__ = y_; y__ >= 1; --y__) {   /* 틀린 부분 */
                 for (int x_ = 0; x_ < 4; ++x_) {
                     blue_brd[x_][y__] = blue_brd[x_][y__ - 1];
                 }
