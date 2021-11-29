@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int sides[3];
+long long sides[3];
 
 int main () {
     while (true) {
@@ -20,15 +20,12 @@ int main () {
             sides[i] *= sides[i];
         }
         
-        string ans;
         if (sides[2] == sides[1] + sides[0]) {
             cout << "right" << endl;
         }
         else {
             cout << "wrong" << endl;
         }
-
     }
-
     return 0;
 }
