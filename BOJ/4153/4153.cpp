@@ -15,12 +15,8 @@ int main () {
         }
 
         sort (sides, sides + 2);
-
-        for (int i = 0; i < 3; ++i) {
-            sides[i] *= sides[i];
-        }
         
-        if (sides[2] == sides[1] + sides[0]) {
+        if (sides[2] * sides[2] == sides[1] * sides[1] + sides[0] * sides[0]) {
             cout << "right" << endl;
         }
         else {
