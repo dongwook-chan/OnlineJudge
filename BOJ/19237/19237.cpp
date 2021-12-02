@@ -7,7 +7,7 @@ using namespace std;
 
 int N, M, k;
 int shark[20][20];
-int priority[401][5][4];
+int next_direction[401][5][4];
 int direction[401];
 struct {
     int shark;
@@ -45,7 +45,7 @@ int main() {
     for (int s = 1; s <= M; ++s) {
         for (int d = 1; d <= 4; ++d) {
             for (int p = 0; p < 4; ++p) {
-                cin >> priority[s][d][p];
+                cin >> next_direction[s][d][p];
             }
         }
     }
@@ -69,8 +69,8 @@ int main() {
 #ifdef DEBUG
         cout << "at " << t << " seconds\n";
 #endif
-        bool sharks[20][20][401] = {false};
-        int dst_directions[20][20][401] = {0};
+        bool shark_after_travel[20][20][401] = {false};
+        int direction_after_travel[20][20][401] = {0};
         for (int x = 0; x < N; ++x) {
             for (int y = 0; y < N; ++y) {
                 if (!shark[x][y]) continue;
@@ -94,16 +94,16 @@ int main() {
 
                 int dst_direction = 0;
                 for (int p = 0; p < 4; ++p) {
-                    bool is_no_odor_direction = no_odor_directions[priority[shark[x][y]][direction[shark[x][y]]][p]];
+                    bool is_no_odor_direction = no_odor_directions[next_direction[shark[x][y]][direction[shark[x][y]]][p]];
                     if (!is_no_odor_direction) continue;
-                    dst_direction = priority[shark[x][y]][direction[shark[x][y]]][p];
+                    dst_direction = next_direction[shark[x][y]][direction[shark[x][y]]][p];
                     break;
                 }
                 if (!dst_direction) {
                     for (int p = 0; p < 4; ++p) {
-                        bool is_prioritized_direction = my_odor_directions[priority[shark[x][y]][direction[shark[x][y]]][p]];
+                        bool is_prioritized_direction = my_odor_directions[next_direction[shark[x][y]][direction[shark[x][y]]][p]];
                         if (!is_prioritized_direction) continue;
-                        dst_direction = priority[shark[x][y]][direction[shark[x][y]]][p];
+                        dst_direction = next_direction[shark[x][y]][direction[shark[x][y]]][p];
                         break;
                     }
                 }
@@ -113,8 +113,9 @@ int main() {
 #endif
                 int nx = x + dx[dst_direction];
                 int ny = y + dy[dst_direction];
-                sharks[nx][ny][shark[x][y]] = true;
-                dst_directions[nx][ny][shark[x][y]] = dst_direction;
+                shark_after_travel[nx][ny][shark[x][y]] = true;
+                ++shark_after_travel[nx][ny][0];
+                direction_after_travel[nx][ny][shark[x][y]] = dst_direction;
             }
         }
 
@@ -122,16 +123,16 @@ int main() {
         
         for (int x = 0; x < N; ++x) {
             for (int y = 0; y < N; ++y) {
+                if (!shark_after_travel[0]) continue;
                 // "모든 상어가 이동한 후 한 칸에 여러 마리의 상어가 남아 있으면, 가장 작은 번호를 가진 상어를 제외하고 모두 격자 밖으로 쫓겨난다."
                 int s;
                 for (s = 1; s <= M; ++s) {
-                    if (sharks[x][y][s]) break;
+                    if (shark_after_travel[x][y][s]) break;
                 }
-                if (s > M) continue;
                 shark[x][y] = s;
 
                 // "그 후에는 방금 이동한 방향이 보고 있는 방향이 된다."
-                direction[shark[x][y]] = dst_directions[x][y][s];
+                direction[shark[x][y]] = direction_after_travel[x][y][s];
             }
         }
 
