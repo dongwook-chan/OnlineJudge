@@ -7,7 +7,6 @@ enum DIR {HORIZ, VERT};
 
 int N;
 int A[500][500];
-int dA[500][500];
 
 int dy[] = {0, 1, 0, -1};
 int dx[] = {-1, 0, 1, 0};
@@ -43,7 +42,7 @@ void wind (int &y, int &x, int d, int rep) {
         int alpha = sand;
 
         if (!sand) continue;
-        
+
         for (auto sand_group : sand_groups) {
             int dy = sand_group.y;
             int dx = sand_group.x;
@@ -62,21 +61,13 @@ void wind (int &y, int &x, int d, int rep) {
             int nx = x + dx;
 
             if (0 <= ny && ny < N && 0 <= nx && nx < N) {
-                dA[ny][nx] += diff_sand;
+                A[ny][nx] += diff_sand;
             }
             else {
                 ans += diff_sand;
             }
 
             alpha -= diff_sand;
-        }
-
-        for (int y = 0; y < N; ++y) {
-            for (int x = 0; x < N; ++x) {
-                if (!dA[y][x]) continue;
-                A[y][x] += dA[y][x];
-                dA[y][x] = 0;
-            }
         }
     }
 }
