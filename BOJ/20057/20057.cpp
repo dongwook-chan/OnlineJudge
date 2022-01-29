@@ -41,6 +41,9 @@ void wind (int &y, int &x, int d, int rep) {
         
         int sand = A[y][x];
         int alpha = sand;
+
+        if (!sand) continue;
+        
         for (auto sand_group : sand_groups) {
             int dy = sand_group.y;
             int dx = sand_group.x;
