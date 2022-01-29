@@ -92,13 +92,13 @@ int main () {
 
     int y = N / 2;
     int x = N / 2;
-    for (int radius = 1; radius <= N; radius += 2) {
+    for (int radius = 1; radius < N; radius += 2) {
         for (int d = 0; d < 4; ++d) {          
             wind (y, x, d, radius + d / 2);
         }
     }
     // extra radius
-    wind (y, x, 0, N);
+    wind (y, x, 0, N - 1);
 
     cout << ans;
 
