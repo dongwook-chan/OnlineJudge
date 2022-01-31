@@ -61,6 +61,14 @@ void dfs(int y, int x, void (*do_for_pos)(int, int)) {
     }
 }
 
+void make_rainbow_revisitable() {
+    for (int y = 0; y < N; ++y) {
+        for (int x = 0; x < N; ++x) {
+            if (grid[y][x] == RAINBOW) visited[y][x] = false;
+        }
+    }
+}
+
 void pull() {
     for (int x = 0; x < N; ++x) {
         int y_land = N - 1;
@@ -127,6 +135,7 @@ int main() {
 
                 block_color = 0;
                 block_size = 0;
+                make_rainbow_revisitable();
                 rainbow_ctr = 0;
                 base = {N, N};
                 dfs(y, x, find_block);
@@ -145,7 +154,7 @@ int main() {
                         max_base = base;
                     }
                     else if (max_rainbow_ctr == rainbow_ctr) {  // 그러한 블록도 여러개라면 기준 블록의 행이 가장 큰 것을, 그 것도 여러개이면 열이 가장 큰 것을 찾는다.
-                        max_base = max(max_base, base);
+                        max_base = max(max_base, base);         // FIXME: "이면, 이면, 이면" 조건이기 때문에 nested 여야하며, 점차 depth 가 깊어져야
                     }
                 } 
             }
