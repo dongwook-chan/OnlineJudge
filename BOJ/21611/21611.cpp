@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cstring>
 
 using namespace std;
 
@@ -172,6 +173,7 @@ int main() {
 #ifdef DEBUG
         cout << "구슬 변화" << endl;
 #endif
+        memset(new_tmp, 0, sizeof(new_tmp));    // FIXED: new_tmp는 매번 다른 개수의 원소가 채워짐 -> 이전 시전의 원소들이 매번 초기화되어야
         int new_i = 0;
         int prev_tile = tmp[0];
         int cont_ctr = 1;
