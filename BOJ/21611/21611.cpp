@@ -148,7 +148,7 @@ int main() {
             int cont_ctr = 1;
             shift = 0;
             int ii;
-            for (ii = 1; ii < i && tmp[ii]; ++ii) {
+            for (ii = 1; ii < i && tmp[ii]; ++ii) {     // FIXED: 빈 tile(구슬 번호가 0)이면 처리를 멈춘다.
                 if (prev_tile == tmp[ii]) {
                     ++cont_ctr;
                 }
@@ -192,8 +192,10 @@ int main() {
             }
             prev_tile = tmp[ii];
         }
-        new_tmp[new_i++] = cont_ctr;    // FIXED: 마지막 원소는 다음 원소가 없어서 비교 대상 없음 -> loop 밖에서 마지막 연속 구슬 처리
-        new_tmp[new_i++] = prev_tile;
+        if (cont_ctr > 1) {
+            new_tmp[new_i++] = cont_ctr;    // FIXED: 마지막 원소는 다음 원소가 없어서 비교 대상 없음 -> loop 밖에서 마지막 연속 구슬 처리
+            new_tmp[new_i++] = prev_tile;
+        }
         print_(new_tmp, i);
 
         traverse(copy_from_new_tmp, new_i);
