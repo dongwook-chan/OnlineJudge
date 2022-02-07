@@ -161,6 +161,10 @@ int main() {
                 }
                 tmp[ii - shift] = tmp[ii];      // FIXED: 연속된 구슬일 경우에도 연속 수가 4개 넘지 않을 수 있기 때문에, 매번 기록해줘야
                 prev_tile = tmp[ii];
+            }   
+            if (cont_ctr >= 4) {                // FIXED: 마지막 원소는 다음 원소가 없어서 비교 대상 없음 -> loop 밖에서 마지막 연속 구슬 처리
+                shift += cont_ctr;
+                score += score_for_beed[prev_tile] * cont_ctr;
             }
             for (; ii - shift < i; ++ii) {      // FIXED: 남은 칸들을 0으로 채워주기
                 tmp[ii - shift] = 0;
@@ -188,6 +192,8 @@ int main() {
             }
             prev_tile = tmp[ii];
         }
+        new_tmp[new_i++] = cont_ctr;    // FIXED: 마지막 원소는 다음 원소가 없어서 비교 대상 없음 -> loop 밖에서 마지막 연속 구슬 처리
+        new_tmp[new_i++] = prev_tile;
         print_(new_tmp, i);
 
         traverse(copy_from_new_tmp, new_i);
