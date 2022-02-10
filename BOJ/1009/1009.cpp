@@ -4,7 +4,7 @@
 using namespace std;
 
 vector<int> cycle_for_base[] = {
-    {0},
+    {10},   // FIXED: 10번 데이터는 10번 컴퓨터
     {1},
     {2, 4, 8, 6},
     {3, 9, 7, 1},
