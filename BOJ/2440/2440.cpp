@@ -7,7 +7,7 @@ int main() {
     int N;
     cin >> N;
 
-    for (int i = N - 1; i >= 1; --i)
+    for (int i = N; i >= 1; --i)
         cout << string(i, '*') << '\n';
 
     return 0;
