@@ -8,7 +8,7 @@ int main() {
     cin >> N;
 
     for (int i = N - 1; i >= 1; --i)
-        cout << string('*', i);
+        cout << string(i, '*');
 
     return 0;
 }
