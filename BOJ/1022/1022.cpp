@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
 
 #define MAX_OFFSET 5000
 #define MAX_SIZE (MAX_OFFSET * 2 + 1)
@@ -9,6 +10,7 @@ using namespace std;
 int grid_[MAX_SIZE][MAX_SIZE];
 int *grid[MAX_SIZE];
 int r1, c1, r2, c2;
+int max_ctr;
 struct diff {
     int dr, dc;
 } directions[] = {
@@ -42,10 +44,18 @@ void fill_grid() {
     }
 }
 
+void find_widest() {
+    for(int r = r1; r <= r2; ++r) {
+        for(int c = c1; c <= c2; ++c) {
+            max_ctr = max(max_ctr, grid[r][c]);
+        }
+    }
+}
+
 void print_grid() {
     for(int r = r1; r <= r2; ++r) {
         for(int c = c1; c <= c2; ++c) {
-            cout << grid[r][c] << ' ';
+            cout << setfill(' ') << setw(to_string(max_ctr).size()) << grid[r][c] << ' ';
         }
         cout << '\n';
     }
@@ -68,6 +78,8 @@ int main() {
     //print_grid_all();
 
     fill_grid();
+
+    find_widest();
 
     print_grid();
 
