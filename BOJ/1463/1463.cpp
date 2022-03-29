@@ -2,9 +2,11 @@
 #include <iostream>
 #include <algorithm>
 
+#define MAX_NO 1000000
+
 using namespace std;
 
-unsigned int memo[1000000];
+unsigned int memo[MAX_NO + 1];
 
 int main() {
     memset(memo, -1, sizeof(memo));
