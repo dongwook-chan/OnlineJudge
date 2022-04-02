@@ -2,6 +2,7 @@
 #include <cstring>
 
 #define MAX_NO 100000
+#define DIVISOR 1000000009
 
 using namespace std;
 
@@ -29,6 +30,7 @@ int lookup(int n, int m) {
         if (i == m) continue;
         table[n][m] += lookup(n - m, i);
     }
+    table[n][m] %= DIVISOR;
     return table[n][m];
 }
 
@@ -43,7 +45,7 @@ int main() {
         int n;
         cin >> n;
 
-        cout << lookup(n,1) + lookup(n,2) + lookup(n,3) << '\n';
+        cout << (lookup(n,1) + lookup(n,2) + lookup(n,3)) % DIVISOR << '\n';
     }
     return 0;
 }
