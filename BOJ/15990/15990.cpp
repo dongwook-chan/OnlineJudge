@@ -45,7 +45,7 @@ int main() {
         int n;
         cin >> n;
 
-        cout << (lookup(n,1) + lookup(n,2) + lookup(n,3)) % DIVISOR << '\n';
+        cout << ((lookup(n,1) + lookup(n,2)) % DIVISOR + lookup(n,3)) % DIVISOR << '\n';
     }
     return 0;
 }
