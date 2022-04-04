@@ -20,7 +20,7 @@ unsigned int A[MAX_SIZE];
 
 entry lookup(int n, int m) {
     // base case
-    if(n == m) return {A[n], 1};
+    if(n == m) return {A[n], 1U};
 
     // memoized
     if(table[n][m].len != NOT_MEMOIZED) return table[n][m];
