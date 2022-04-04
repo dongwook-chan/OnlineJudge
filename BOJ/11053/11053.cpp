@@ -27,7 +27,7 @@ entry lookup(int n, int m) {
 
     // not memoized
     entry old_entry = lookup(n, m - 1);
-    if(A[m] > old_entry.max) table[n][m] = {A[m], old_entry.len + 1};
+    if(A[m] > old_entry.max) table[n][m] = {A[m], old_entry.len + 1U};
     else table[n][m] = old_entry;
 
     return table[n][m];
