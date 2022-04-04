@@ -30,6 +30,7 @@ entry lookup(int n, int m) {
     if(A[m] > old_entry.max) table[n][m] = {A[m], old_entry.len + 1U};
     else table[n][m] = old_entry;
 
+    cout << n << ' ' << m << ": " << table[n][m] << endl;
     return table[n][m];
 }
 
