@@ -63,7 +63,7 @@ int main() {
         cin >> I[i];
     }
 
-    lookup(n);
+    lookup(n - 1);
 
     cout << *max_element(table, table + n); 
 
