@@ -5,6 +5,9 @@
 
     단, 작은 수 부터 탐색(bottom-up)해나가야 '가장 큰 제곱수' 늘려나갈 수 있다.
     큰 수부터 탐색하면(top-down) '가장 큰 제곱수'를 이진 탐색으로 찾아야 한다.
+
+    위 가정이 틀림...
+    n에 대해서 n^(1/2)개의 '제곱수'를 모두 고려해야 
 */
 
 #include <iostream>
@@ -12,29 +15,37 @@
 #include <algorithm>
 
 #define MAX_SIZE 100000
+#define NOT_MEMOIZED INT_MAX
 
 using namespace std;
 
-int table[MAX_SIZE + 1];
+int table[MAX_SIZE];
+void init_table() {
+    fill(table, table + MAX_SIZE + 1, NOT_MEMOIZED);
+}
+
+int lookup(int n) {
+    if(n == 0) return 0;
+
+    // memoized
+    if(table[n] != NOT_MEMOIZED) return table[n];
+
+    // not memoized
+    for(int i = 1, s = 1; s <= n; ++i, s = i * i){
+        table[n] = min(table[n], lookup(n - s) + 1);
+    }
+    return table[n];
+}
 
 int main() {
+    init_table();
+
     int N;
     cin >> N;
 
-    int square_ctr = 1;
-    int square = 1;
-    int next_square = 4;
-    for(int n = 1; n <= N; ++n) {
-        if(n == next_square) {
-            ++square_ctr;
-            square = square_ctr * square_ctr;
-            next_square = (square_ctr + 1) * (square_ctr + 1);
-        }
-        int rem = n - square;
-        table[n] = table[rem] + 1;
-    }
+    cout << lookup(N);
 
-    cout << table[N];
+    //for(int i = 1; i <= N; ++i) cout << table[i] << ' ';
 
     return 0;
 }
