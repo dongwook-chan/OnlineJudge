@@ -91,7 +91,7 @@ int lookup_table(int n, int k) {
 
     // not memoized
     table[n][k] = 0;
-    for(int i = 1; i <= k; ++i) {
+    for(int i = 1; i <= min(n, k); ++i) {   // NOTE: 아래 식의 n - i이 음수가 되면 안 됨
         table[n][k] += ((long long)lookup_table(n - i, i) * lookup_combination(k, i)) % DIVISOR;
         table[n][k] %= DIVISOR;
     }
@@ -104,6 +104,7 @@ int main() {
 
     int N, K;
     cin >> N >> K;
+    //N = 200, K = 200;
 
     cout << lookup_table(N, K);
 
