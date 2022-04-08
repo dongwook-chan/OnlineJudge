@@ -65,11 +65,15 @@ int main() {
         }
     }
 
-    if(P_ > P) {
+    if(!P || P_ > P) {
         cout << 0;
         return 0;
     }
-
+    if(!P_) {
+        cout << -1;
+        return 0;
+    }
+    
     lookup(((1 << N) - 1), N);
 
     cout << min_cost_for_cnt[P];
