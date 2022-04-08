@@ -14,7 +14,7 @@ string plant_status_;
 int P, P_;
 int min_cost_for_bm[1 << MAX_SIZE];
 int min_cost_for_cnt[MAX_SIZE + 1];
-int min_cost = MAX_INT;
+int min_cost = INT_MAX;
 int plant_status;
 
 void init_table() {
