@@ -19,7 +19,7 @@ int plant_status;
 
 void init_table() {
     fill(min_cost_for_bm, min_cost_for_bm + (1 << MAX_SIZE), NOT_MEMOIZED);
-    fill(min_cost_for_cnt, min_cost_for_cnt + MAX_SIZE, INT_MAX);
+    fill(min_cost_for_cnt, min_cost_for_cnt + MAX_SIZE + 1, INT_MAX);
 }
 
 int lookup(int n, int cnt) {
