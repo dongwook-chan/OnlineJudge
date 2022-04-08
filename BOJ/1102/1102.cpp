@@ -13,7 +13,8 @@ int cost[MAX_SIZE][MAX_SIZE];
 string plant_status_;
 int P, P_;
 int min_cost_for_bm[1 << MAX_SIZE];
-int min_cost_for_cnt[MAX_SIZE];
+int min_cost_for_cnt[MAX_SIZE + 1];
+int min_cost = MAX_INT;
 int plant_status;
 
 void init_table() {
@@ -65,7 +66,7 @@ int main() {
         }
     }
 
-    if(!P || P_ > P) {
+    if(P_ >= P) {
         cout << 0;
         return 0;
     }
@@ -76,7 +77,10 @@ int main() {
     
     lookup(((1 << N) - 1), N);
 
-    cout << min_cost_for_cnt[P];
+    for(int i = P; i <= N; ++i) {   // NOTE: 적어도 P 이상 -> P 초과 발전소가 선택되었을 때 최저 비용일 수도 있음...  
+        min_cost = min(min_cost, min_cost_for_cnt[P]);
+    }
+    cout << min_cost;
 
     return 0;
 }
