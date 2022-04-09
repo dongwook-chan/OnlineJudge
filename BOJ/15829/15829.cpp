@@ -20,6 +20,6 @@ int main() {
         r = (r * 31L) % DIVISOR;
     }
 
-    cout << sum;
+    cout << sum % DIVISOR;
     return 0;
 }
