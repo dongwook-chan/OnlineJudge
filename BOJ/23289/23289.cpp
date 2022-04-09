@@ -3,7 +3,7 @@
 #include <vector>
 
 #define MAX_HOUSE_SIZE 20
-#define NO_WALL -1
+//#define NO_WALL -1
 #define OOH(r, c) (!(1 <= (r) && (r) <= R && 1 <= (c) && (c) <= C)) // Out Of House
 //#define DEBUG
 
@@ -18,7 +18,7 @@ using namespace std;
 int R, C, K;
 int info[MAX_HOUSE_SIZE + 1][MAX_HOUSE_SIZE + 1];
 int W;
-int wall[MAX_HOUSE_SIZE + 1][MAX_HOUSE_SIZE + 1];
+bool wall[2][MAX_HOUSE_SIZE + 1][MAX_HOUSE_SIZE + 1];
 void print_wall() {
 #ifdef DEBUG
     for(int r = 1; r <= R; ++r) {
@@ -93,7 +93,7 @@ void propagate_heat(int h, int r, int c, int dir) {
             int wr = nr + wall_pose_to_check[d].dr;
             int wc = nc + wall_pose_to_check[d].dc;
             if(OOH(wr, wc)) goto next_move;
-            if(wall[wr][wc] == wall_value_to_check[d]) goto next_move;    // 일부 칸과 칸 사이에는 벽이 있어 온풍기 바람이 지나갈 수 없다.
+            if(wall[wall_value_to_check[d]][wr][wc]) goto next_move;    // 일부 칸과 칸 사이에는 벽이 있어 온풍기 바람이 지나갈 수 없다.
             nr += dr[d];
             nc += dc[d];
         }
@@ -159,11 +159,11 @@ int main() {
         }
     }
     cin >> W;
-    memset(wall, NO_WALL, sizeof(wall));
+    //memset(wall, NO_WALL, sizeof(wall));
     for(int w = 0; w < W; ++w) {
         int x, y, t;
         cin >> x >> y >> t;
-        wall[x][y] = t;
+        wall[t][x][y] = true; // NOTE: wall 배열이 하나면 (2, 2, 0), (2, 2, 1)을 동시에 표현 불가 -> 문제 주어진 input 가공하지 말고 그대로 사용!
     }
     print_wall();
     // 구사과의 성능 테스트는 다음과 같은 작업이 순차적으로 이루어지며, 가장 처음에 모든 칸의 온도는 0이다. 문제의 그림에서 빈 칸은 온도가 0인 칸을 의미한다.
@@ -196,7 +196,7 @@ int main() {
                     int wr = heat_r + wall_pose_to_check[dir].dr;
                     int wc = heat_c + wall_pose_to_check[dir].dc;
                     if(OOH(wr, wc)) continue;
-                    if(wall[wr][wc] == wall_value_to_check[dir]) continue;
+                    if(wall[wall_value_to_check[dir]][wr][wc]) continue;
 
                     // 모든 인접한 칸에 대해서,
                     int nr = heat_r + dr[dir];
@@ -220,7 +220,7 @@ int main() {
         print_heat();
         // # 3. 온도가 1 이상인 가장 바깥쪽 칸의 온도가 1씩 감소
         //memset(visited, false, sizeof(visited));
-        if(heat[1][1]) --heat[1][1];
+        if(heat[1][1]) --heat[1][1];    // NOTE: 모서리 중복 처리하지 않도록 주의!
         if(heat[1][C]) --heat[1][C];
         if(heat[R][1]) --heat[R][1];
         if(heat[R][C]) --heat[R][C];
