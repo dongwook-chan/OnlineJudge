@@ -11,13 +11,13 @@ int main() {
     cin >> L >> S;
 
     long long sum = 0;
+    int r = 1;
     for(int i = 0; i < L; ++i) {
         int a = S[i] - 'a' + 1;
-        int r = 1;
-        for(int j = 0; j < i; ++j) {
-            r = (r * 31L) % DIVISOR;
-        }
+        
         sum += ((long long)a * r) % DIVISOR;
+
+        r = (r * 31L) % DIVISOR;
     }
 
     cout << sum;
