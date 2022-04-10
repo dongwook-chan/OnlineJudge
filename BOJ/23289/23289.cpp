@@ -45,9 +45,12 @@ struct diff {
 };
 int wall_value_to_check[5] = {-1, 1, 1, 0, 0};
 bool check_wall(int r, int c, int dir) {
+    int nr = r + wall_pose_to_check[dir].dr;
+    int nc = c + wall_pose_to_check[dir].dc;
+
     bool has_wall = false;
     for(wall w : walls) {
-        if(w.x != r || w.y != c) continue;
+        if(w.x != nr || w.y != nc) continue;
         if(w.t == wall_value_to_check[dir]) has_wall = true;// NOTE: (r, c) 일치한다고 바로 return x (2, 2, 0) (2, 2, 1) 모두 존재 가능
     }
     return has_wall;
@@ -67,10 +70,7 @@ void propagate_heat(int h, int r, int c, int dir) {
         int nr = r;
         int nc = c;
         for(DIRECTION d : heat_dir[dir][i]) {
-            int wr = nr + wall_pose_to_check[d].dr;
-            int wc = nc + wall_pose_to_check[d].dc;
-            if(OOH(wr, wc)) goto next_move;
-            if(check_wall(wr, wc, d)) goto next_move;    // 일부 칸과 칸 사이에는 벽이 있어 온풍기 바람이 지나갈 수 없다.
+            if(check_wall(nr, nc, d)) goto next_move;    // 일부 칸과 칸 사이에는 벽이 있어 온풍기 바람이 지나갈 수 없다.
             nr += dr[d];
             nc += dc[d];
         }
@@ -132,10 +132,7 @@ int main() {
 
                 for(int dir = 1; dir <= 4; ++dir) {
                     // 인접한 두 칸 사이에 벽이 있는 경우에는 온도가 조절되지 않는다.
-                    int wr = heat_r + wall_pose_to_check[dir].dr;
-                    int wc = heat_c + wall_pose_to_check[dir].dc;
-                    if(OOH(wr, wc)) continue;
-                    if(check_wall(wr, wc, dir)) continue;
+                    if(check_wall(heat_r, heat_c, dir)) continue;
 
                     // 모든 인접한 칸에 대해서,
                     int nr = heat_r + dr[dir];
