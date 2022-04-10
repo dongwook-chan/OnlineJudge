@@ -7,7 +7,6 @@
 #define MAX_FISH 10
 #define MAX_REP 100
 #define OOG(r, c) (!(1 <= (r) && (r) <= 4 && 1 <= (c) && (c) <= 4))  // Out Of Grid
-//#define DEBUG
 
 using namespace std;
 
@@ -117,14 +116,13 @@ int main() {
                         if(shark[nr][nc] || check_fish_smell(nr, nc, s)) goto next_direction;   // 상어가 있는 칸, 물고기의 냄새가 있는 칸
 
                         fish_traveled[nr][nc].push_back(nd); // 그 외의 경우에는 그 칸으로 이동을 한다.
-                        //cout << nd << endl;
                         goto next_fish;
                         
                     next_direction:
                         nd = ((nd - 1) + 7) % 8 + 1; // 각 물고기는 자신이 가지고 있는 이동 방향이 이동할 수 있는 칸을 향할 때까지 방향을 45도 반시계 회전시킨다.
                     }
                     // 만약, 이동할 수 있는 칸이 없으면 이동을 하지 않는다.
-                    fish_traveled[r][c].push_back(d);   // note: 이동하지 않고 제자리인 경우에도 fish_traveld에 추가해줘야
+                    fish_traveled[r][c].push_back(d);   // note: 이동하지 않고 제자리인 경우에도 fish_traveled에 추가해줘야
                 next_fish:
                     continue;
                 }
@@ -137,9 +135,6 @@ int main() {
             for(int c = 1; c <= 4; ++c) {
                 if(!shark[r][c]) continue;
 
-                //cout << r << ", " << c << endl;
-
-                //memset(visited, false, sizeof(visited));
                 max_fish_ctr = -1;
                 shark_travel(r, c, 0, 0);
 
