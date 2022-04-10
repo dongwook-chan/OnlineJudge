@@ -45,11 +45,12 @@ struct diff {
 };
 int wall_value_to_check[5] = {-1, 1, 1, 0, 0};
 bool check_wall(int r, int c, int dir) {
+    bool has_wall = false;
     for(wall w : walls) {
         if(w.x != r || w.y != c) continue;
-        return w.t == wall_value_to_check[dir];
+        if(w.t == wall_value_to_check[dir]) has_wall = true;// NOTE: (r, c) 일치한다고 바로 return x (2, 2, 0) (2, 2, 1) 모두 존재 가능
     }
-    return false;
+    return has_wall;
 }
 
 int heat[MAX_HOUSE_SIZE + 1][MAX_HOUSE_SIZE + 1];
