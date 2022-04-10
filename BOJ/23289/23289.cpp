@@ -3,34 +3,17 @@
 #include <vector>
 
 #define MAX_HOUSE_SIZE 20
-//#define NO_WALL -1
 #define OOH(r, c) (!(1 <= (r) && (r) <= R && 1 <= (c) && (c) <= C)) // Out Of House
-//#define DEBUG
 
 using namespace std;
-
-/*
-    # TODO
-    1. 배열 초기화값 체크
-*/
-
 
 int R, C, K;
 int info[MAX_HOUSE_SIZE + 1][MAX_HOUSE_SIZE + 1];
 int W;
-bool wall[2][MAX_HOUSE_SIZE + 1][MAX_HOUSE_SIZE + 1];
-void print_wall() {
-#ifdef DEBUG
-    for(int r = 1; r <= R; ++r) {
-        for(int c =1; c <= C; ++c) {
-            cout << wall[r][c] << '\t';
-        }
-        cout << endl;
-    }
-    cout << endl;
-#endif
-    ;
-}
+struct wall{
+    int x, y, t;
+};
+vector<wall> walls;
 
 // # 1.
 enum DIRECTION {NONE, RIGHT, LEFT, UP, DOWN};
@@ -61,28 +44,21 @@ struct diff {
     {1, 0},
 };
 int wall_value_to_check[5] = {-1, 1, 1, 0, 0};
+bool check_wall(int r, int c, int dir) {
+    for(wall w : walls) {
+        if(w.x != r || w.y != c) continue;
+        return w.t == wall_value_to_check[dir];
+    }
+    return false;
+}
 
 int heat[MAX_HOUSE_SIZE + 1][MAX_HOUSE_SIZE + 1];
-void print_heat() {
-#ifdef DEBUG
-    for(int r = 1; r <= R; ++r) {
-        for(int c = 1; c <= C; ++c) {
-            cout << heat[r][c] << '\t';
-        }
-        cout << endl;
-    }
-    cout << endl;
-#endif
-    ;
-}
 bool visited[MAX_HOUSE_SIZE + 1][MAX_HOUSE_SIZE + 1];
 // 그 다음 이 바람은 계속 다른 칸으로 이동해 다른 칸의 온도를 위의 그림과 같이 상승시키게 된다.
 // 어떤 칸 (x, y)에 온풍기 바람이 도착해 온도가 k (> 1)만큼 상승했다면, (x-1, y+1), (x, y+1), (x+1, y+1)의 온도도 k-1만큼 상승하게 된다. 
 void propagate_heat(int h, int r, int c, int dir) {
     visited[r][c] = true;
     heat[r][c] += h;
-
-    //print_heat();
 
     if(h == 1) return;
 
@@ -93,7 +69,7 @@ void propagate_heat(int h, int r, int c, int dir) {
             int wr = nr + wall_pose_to_check[d].dr;
             int wc = nc + wall_pose_to_check[d].dc;
             if(OOH(wr, wc)) goto next_move;
-            if(wall[wall_value_to_check[d]][wr][wc]) goto next_move;    // 일부 칸과 칸 사이에는 벽이 있어 온풍기 바람이 지나갈 수 없다.
+            if(check_wall(wr, wc, d)) goto next_move;    // 일부 칸과 칸 사이에는 벽이 있어 온풍기 바람이 지나갈 수 없다.
             nr += dr[d];
             nc += dc[d];
         }
@@ -108,46 +84,11 @@ void propagate_heat(int h, int r, int c, int dir) {
 
 // # 2.
 int heat_diff[MAX_HOUSE_SIZE + 1][MAX_HOUSE_SIZE + 1];
-void print_heat_diff() {
-#ifdef DEBUG
-    for(int r = 1; r <= R; ++r) {
-        for(int c = 1; c <= C; ++c) {
-            cout << heat_diff[r][c] << '\t';
-        }
-        cout << endl;
-    }
-    cout << endl;
-#endif
-    ;
-}
 
 // # 3.
-void cool(int r, int c) {
-    visited[r][c] = true;
-    if(heat[r][c]) {
-        --heat[r][c];
-        return;
-    }
-
-    for(int dir = 1; dir <= 4; ++dir) {
-        int nr = r + dr[dir];
-        int nc = c + dc[dir];
-
-        if(OOH(nr, nc)) continue;
-        if(visited[nr][nc]) continue;
-
-        cool(nr, nc);
-    }
-}
 
 // # 4.
 int chocolate_ctr;
-void print_chocolate() {
-#ifdef DEBUG
-    cout << chocolate_ctr << endl;
-#endif
-    ;
-}
 
 // # 5.
 
@@ -163,12 +104,10 @@ int main() {
     for(int w = 0; w < W; ++w) {
         int x, y, t;
         cin >> x >> y >> t;
-        wall[t][x][y] = true; // NOTE: wall 배열이 하나면 (2, 2, 0), (2, 2, 1)을 동시에 표현 불가 -> 문제 주어진 input 가공하지 말고 그대로 사용!
+        walls.push_back({x, y, t});  // NOTE: wall 배열이 하나면 (2, 2, 0), (2, 2, 1)을 동시에 표현 불가 -> 문제 주어진 input 가공하지 말고 그대로 사용!
     }
-    print_wall();
     // 구사과의 성능 테스트는 다음과 같은 작업이 순차적으로 이루어지며, 가장 처음에 모든 칸의 온도는 0이다. 문제의 그림에서 빈 칸은 온도가 0인 칸을 의미한다.
     while(true) {
-        print_chocolate();
         // # 1. 집에 있는 모든 온풍기에서 바람이 한 번 나옴
         for(int info_r = 1; info_r <= R; ++info_r) {
             for(int info_c = 1; info_c <= C; ++info_c) {
@@ -185,7 +124,6 @@ int main() {
                 propagate_heat(5, r, c, dir);
             }
         }
-        print_heat();
         // # 2. 온도가 조절됨
         memset(heat_diff, 0, sizeof(heat_diff));
         for(int heat_r = 1; heat_r <= R; ++heat_r) {
@@ -196,7 +134,7 @@ int main() {
                     int wr = heat_r + wall_pose_to_check[dir].dr;
                     int wc = heat_c + wall_pose_to_check[dir].dc;
                     if(OOH(wr, wc)) continue;
-                    if(wall[wall_value_to_check[dir]][wr][wc]) continue;
+                    if(check_wall(wr, wc, dir)) continue;
 
                     // 모든 인접한 칸에 대해서,
                     int nr = heat_r + dr[dir];
@@ -211,15 +149,12 @@ int main() {
                 }
             }
         }
-        //print_heat_diff();
         for(int heat_r = 1; heat_r <= R; ++heat_r) {
             for(int heat_c = 1; heat_c <= C; ++heat_c) {
                 heat[heat_r][heat_c] += heat_diff[heat_r][heat_c];
             }
         }
-        print_heat();
         // # 3. 온도가 1 이상인 가장 바깥쪽 칸의 온도가 1씩 감소
-        //memset(visited, false, sizeof(visited));
         if(heat[1][1]) --heat[1][1];    // NOTE: 모서리 중복 처리하지 않도록 주의!
         if(heat[1][C]) --heat[1][C];
         if(heat[R][1]) --heat[R][1];
@@ -232,7 +167,6 @@ int main() {
             if(heat[heat_r][1]) --heat[heat_r][1];
             if(heat[heat_r][C]) --heat[heat_r][C];
         }
-        print_heat();
         // # 4. 초콜릿을 하나 먹는다.
         ++chocolate_ctr;
         if(chocolate_ctr > 100) break;
