@@ -1,11 +1,11 @@
 #include <iostream>
-#include <queue>
+#include <set>
 
 using namespace std;
 
 int n;
 int prev_y;
-priority_queue<int> pq;
+set<int> ys;
 int bldg_ctr;
 
 int main() {
@@ -14,10 +14,13 @@ int main() {
         int x, y;
         cin >> x >> y;
 
-        pq.push(y);
+        ys.insert(y);
 
         if(y < prev_y) {
-            for(;pq.size() && pq.top() > y; pq.pop()) ++bldg_ctr;
+            for(;ys.size() && *ys.begin() > y; ys.erase(ys.begin())) {
+                cout << n << ": " << x <<", " <<y << endl;
+                ++bldg_ctr;
+            }
         }
 
         prev_y = y;
