@@ -24,19 +24,7 @@ void bf(int i, vector<int> stack) {
         }
         cout << endl;
     #endif
-        while(stack.size() > 1) {
-            int n2 = stack.back(); stack.pop_back();
-            int op = stack.back(); stack.pop_back();
-            int n1 = stack.back(); stack.pop_back();
-            int res;
-            if(op == '+') {
-                res = n1 + n2;
-            }
-            else {
-                res = n1 - n2;
-            }
-            stack.push_back(res);
-        }
+        if(stack.size() > 1) return;
         min_res = min(min_res, stack.back());
         return;
     }
