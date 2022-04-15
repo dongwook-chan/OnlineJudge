@@ -8,7 +8,7 @@
 
 #define MAX_NUMBER_CTR 25
 #define MAX_OPERATOR_CTR 25
-//#define DEBUG
+#define DEBUG
 
 using namespace std;
 
@@ -24,7 +24,19 @@ void bf(int i, vector<int> stack) {
         }
         cout << endl;
     #endif
-        if(stack.size() > 1) return;
+        while(stack.size() > 1) {
+            int n2 = stack.back(); stack.pop_back();
+            int op = stack.back(); stack.pop_back();
+            int n1 = stack.back(); stack.pop_back();
+            int res;
+            if(op == '+') {
+                res = n1 + n2;
+            }
+            else {
+                res = n1 - n2;
+            }
+            stack.push_back(res);
+        }
         min_res = min(min_res, stack.back());
         return;
     }
