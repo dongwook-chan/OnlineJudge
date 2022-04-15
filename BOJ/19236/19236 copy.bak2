@@ -1,0 +1,154 @@
+#include <iostream>
+#include <algorithm>
+
+//#define DEBUG
+enum STATUS {EMPTY = -1, SHARK};
+
+using namespace std;
+
+struct fish {
+    int n;
+    int d;
+};
+
+struct point {
+    int x;
+    int y;
+    int n;
+    int d;
+};
+
+// ↗, ↑, ↖, ←, ↙, ↓, ↘, →, 
+int dx[] = {-1, -1, -1, 0, 1, 1, 1, 0};
+int dy[] = {1, 0, -1, -1, -1, 0, 1, 1};
+
+int ans;
+
+point get_pos (fish space[][4], int n) {
+    for (int x = 0; x < 4; ++x) {
+        for (int y = 0; y < 4; ++y) {
+            int nn = space[x][y].n;
+            int nd = space[x][y].d;
+
+            if (nn == n) return {x, y, nn, nd};
+        }
+    }
+    return {-1, -1, EMPTY, -1};
+}
+
+#ifdef DEBUG
+void bf(fish space[][4], int sum, int depth) {
+    cout << "depth: " << depth << endl;
+#else
+void bf(fish space[][4], int sum) {
+#endif
+    for (int n = 1; n <= 16; ++n) {
+        point p = get_pos(space, n);
+
+        if (p.n == EMPTY) continue;
+
+        for (int dd = 0; dd < 8; ++dd) {
+            int nd = (p.d + dd) % 8;
+            int nx = p.x + dx[nd];
+            int ny = p.y + dy[nd];
+
+            if (!(0 <= nx && nx < 4 && 0 <= ny && ny < 4)) continue;
+
+            int nn = space[nx][ny].n;
+
+            if (nn == SHARK) continue;
+
+            swap(space[p.x][p.y], space[nx][ny]);
+            break;
+        }
+
+#ifdef DEBUG
+        cout << "fish" << " " << n << " moved." << endl; 
+        for (int x = 0; x < 4; ++ x) {
+            for (int y = 0; y < 4; ++ y) {
+                cout << space[x][y].n << ", " << space[x][y].d << '\t';
+            }
+            cout << endl;
+        }
+#endif
+    }
+
+    point p = get_pos(space, SHARK);
+    int ctr = 0;
+    for (int m = 1; m <= 3; ++m) {
+        int nx = p.x + dx[p.d] * m;
+        int ny = p.y + dy[p.d] * m;
+
+        if (!(0 <= nx && nx < 4 && 0 <= ny && ny < 4)) continue;
+
+        int nn = space[nx][ny].n;
+
+        if (nn == EMPTY) continue;
+
+        fish new_space[4][4];
+        for (int x = 0; x < 4; ++x) {
+            copy (space[x], space[x] + 4, new_space[x]);
+        }
+
+        ctr++;
+        new_space[nx][ny].n = SHARK;
+        new_space[p.x][p.y].n = EMPTY;
+        
+#ifdef DEBUG
+        cout << "shark moved." << endl; 
+        for (int x = 0; x < 4; ++ x) {
+            for (int y = 0; y < 4; ++ y) {
+                cout << new_space[x][y].n << ", " << new_space[x][y].d << '\t';
+            }
+            cout << endl;
+        }
+        bf (new_space, sum + nn, depth + 1);
+#else
+        bf (new_space, sum + nn);
+#endif
+
+    }
+
+    if (ctr == 0) {
+        ans = max(ans, sum);
+    }
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    fish space[4][4];
+
+    for (int x = 0; x < 4; ++x) {
+        for (int y = 0; y < 4; ++y) {
+            int n, d;
+            cin >> n >> d;
+            space[x][y].n = n;
+            space[x][y].d = d % 8;
+        }
+    }
+
+#ifdef DEBUG
+    for (int x = 0; x < 4; ++x) {
+        for (int y = 0; y < 4; ++y) {
+            cout << space[x][y].n << ", " << space[x][y].d << "\t";
+        }
+        cout << endl;
+    }
+#endif
+
+    int nn = space[0][0].n;
+    space[0][0].n = SHARK;
+
+#ifdef DEBUG
+    bf(space, nn, 0);
+#else
+    bf(space, nn);
+#endif
+
+    cout << ans;
+
+    return 0;
+}
