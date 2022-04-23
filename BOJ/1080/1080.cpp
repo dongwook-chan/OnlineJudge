@@ -11,7 +11,7 @@ string after[MAX_ARRAY_SIZE];
 
 int ctr;
 
-void flip(int y, int x) {
+void flip(int y, int x){
     for(int dy = 0; dy < 3; ++dy) {
         for(int dx = 0; dx < 3; ++dx) {
             before[y + dy][x + dx] = 1 - (before[y + dy][x + dx] - '0') + '0';
@@ -40,14 +40,14 @@ int main(){
     }
 
     for(int y = 0; y < N; ++y) {
-        for(int x = 0; x < N; ++x) {
+        for(int x = 0; x < M; ++x) {
             if(before[y][x] != after[y][x]) {
                 cout << -1;
                 return 0;
             }
         }
     }
-    
+
     cout << ctr;
     return 0;
 }
