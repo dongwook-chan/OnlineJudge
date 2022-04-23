@@ -2,7 +2,6 @@
 #include <cstring>
 
 #define MAX_ARRAY_SIZE 50
-#define OOM(y, x) (!(0 <= (y) && (y) < N && 0 <= (x) && (x) < M))
 
 using namespace std;
 
@@ -40,12 +39,15 @@ int main(){
         }
     }
 
-    if(memcmp(after, before, sizeof(before))) {
-        cout << -1;
+    for(int y = 0; y < N; ++y) {
+        for(int x = 0; x < N; ++x) {
+            if(before[y][x] != after[y][x]) {
+                cout << -1;
+                return 0;
+            }
+        }
     }
-    else{
-        cout << ctr;
-    }
-
+    
+    cout << ctr;
     return 0;
 }
