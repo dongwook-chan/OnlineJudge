@@ -40,6 +40,18 @@ else
     exit 1
 fi
 
+# create python file
+if [ ! -f $work_dir/$2.py ]; then
+    touch $work_dir/$2.py
+fi
+
+if [ -f $work_dir/$2.py ]; then
+    echo "python file created"
+else
+    echo "failed to create python file"
+    exit 1
+fi
+
 # create input files
 if [ $1 == "BOJ" ]; then
     crawl_res=$(python3 crawler.py $work_dir $2)
