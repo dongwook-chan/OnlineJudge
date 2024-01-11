@@ -12,3 +12,7 @@ cached_problem
 
 # vs code
 .vscode/
+
+# JetBrains
+.idea/*
+
