@@ -1,10 +1,9 @@
 L = input()
-i, j = 0, 10
+i = 0
 while True:
-    if j > len(L):
+    if i + 10 > len(L):
         print(L[i:])
         break
     else:
-        print(L[i:j])
+        print(L[i:i + 10])
     i += 10
-    j += 10
