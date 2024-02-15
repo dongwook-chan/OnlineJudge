@@ -23,5 +23,7 @@ for _ in range(5):
         for color, item in zip(visited_colors.keys(), visited_items.keys()):
             if visited_colors[color] is not None or visited_items[item] is not None:
                 continue
+            if item == "barabashka":
+                item = "Barabashka"
             print(color, item)
             break
