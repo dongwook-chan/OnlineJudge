@@ -1,2 +1,2 @@
 N = int(input())
-print(8 * N ** 2 + 4 * N + 1)
+print(7 * N ** 2 + 5 * N + 1)
