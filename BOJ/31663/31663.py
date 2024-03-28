@@ -1,7 +1,8 @@
 from statistics import mean
 l = []
 for _ in range(int(input())):
-    l.append(list(map(ord, input()[:-1])))
+    l.append(list(map(ord, input().rstrip())))
+
 s = ''
 for j in range(max(map(len, l))):
     l_ = []
