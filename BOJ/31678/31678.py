@@ -18,5 +18,6 @@ for name, bingo_candidates in zip(names, bingo_candidates_list):
     for bingo_candidate in bingo_candidates:
         if bingo_candidate <= selected_balls:
             bingo_names.append(name)
+            break
 print(len(bingo_names))
 print('\n'.join(bingo_names))
