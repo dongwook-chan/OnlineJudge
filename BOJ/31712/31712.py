@@ -12,11 +12,10 @@ pq: PriorityQueue[Event] = PriorityQueue()
 pq.put(Event(0, Cu, Du))
 pq.put(Event(0, Cd, Dd))
 pq.put(Event(0, Cp, Dp))
-while H > 0:
-    Tnow = pq.queue[0].time
-    while pq.queue[0].time == Tnow:
-        T, C, D = pq.get()
-        H -= D
-        pq.put(Event(T + C, C, D))
 
-print(Tnow)
+while H > 0:
+    T, C, D = pq.get()
+    H -= D
+    pq.put(Event(T + C, C, D))
+
+print(T)
