@@ -1,4 +1,3 @@
-from queue import PriorityQueue
 from collections import namedtuple
 
 Event = namedtuple("Event", ["time", "cycle", "damage"])
@@ -8,14 +7,17 @@ Cd, Dd = map(int, input().split())
 Cp, Dp = map(int, input().split())
 H = int(input())
 
-pq: PriorityQueue[Event] = PriorityQueue()
-pq.put(Event(0, Cu, Du))
-pq.put(Event(0, Cd, Dd))
-pq.put(Event(0, Cp, Dp))
+pq: list[Event] = []
+pq.append(Event(0, Cp, Dp))
+pq.append(Event(0, Cu, Du))
+pq.append(Event(0, Cd, Dd))
 
 while H > 0:
-    T, C, D = pq.get()
+    pq.sort(reverse=True)
+    T, C, D = pq[-1]
+    pq.pop()
+
     H -= D
-    pq.put(Event(T + C, C, D))
+    pq.append(Event(T + C, C, D))
 
 print(T)
