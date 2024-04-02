@@ -1,23 +1,25 @@
 from collections import namedtuple
 
-Event = namedtuple("Event", ["time", "cycle", "damage"])
 
 Cu, Du = map(int, input().split())
 Cd, Dd = map(int, input().split())
 Cp, Dp = map(int, input().split())
 H = int(input())
 
-pq: list[Event] = []
-pq.append(Event(0, Cp, Dp))
-pq.append(Event(0, Cu, Du))
-pq.append(Event(0, Cd, Dd))
+t: list[int] = [0] * 5001
 
-while H > 0:
-    pq.sort(reverse=True)
-    T, C, D = pq[-1]
-    pq.pop()
+for T in range(0, 5001, Cu):
+    t[T] += Du
 
-    H -= D
-    pq.append(Event(T + C, C, D))
+for T in range(0, 5001, Cd):
+    t[T] += Dd
 
-print(T)
+for T in range(0, 5001, Cp):
+    t[T] += Dp
+
+for i in range(0, 5001):
+    H -= t[i]
+    if H <= 0:
+        break
+
+print(i)
