@@ -1,8 +1,8 @@
 K = int(input())
 N = int(input())
-A = list(map(int, input().split()))
+A = tuple(map(int, input().split()))
 M = int(input())
-B = list(map(int, input().split()))
+B = tuple(map(int, input().split()))
 c = 0
 for a in A:
     for b in B:
