@@ -7,4 +7,4 @@ while N > 0:
     else:
         ans += chr(ord('A') + r - 10)
     N //= B
-print(ans)
+print(ans[::-1])
