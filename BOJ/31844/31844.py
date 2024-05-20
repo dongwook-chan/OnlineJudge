@@ -2,7 +2,7 @@ status = input()
 robot = status.find('@')
 source = status.find('#')
 destination = status.find('!')
-if destination < robot < source or source < robot < destination:
-    print(-1)
-else:
+if robot < source < destination or destination < source < robot:
     print(abs(destination - robot) - 1)
+else:
+    print(-1)
