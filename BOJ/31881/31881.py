@@ -2,7 +2,7 @@ import sys
 from collections import Counter
 N, Q = map(int, input().split())
 c = [None] + [False] * N
-ctr = 10
+ctr = N
 for _ in range(Q):
     q = sys.stdin.readline()
     match q[0]:
